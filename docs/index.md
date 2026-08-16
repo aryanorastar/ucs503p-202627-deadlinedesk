@@ -7,7 +7,7 @@
 
 **Author(s)**:
 
-`(AG)` Aryan Gupta `<agupta_be24 -at- thapar -dot- edu>`
+`(AG)` Aryan Gupta `<agupta15_be24 -at- thapar -dot- edu>`
 
 `(AK)` Aksh Goyal `<agoyal2_be24 -at- thapar -dot- edu>`
 

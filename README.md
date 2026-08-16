@@ -50,7 +50,7 @@ make docs
 
 | Name | Roll No. | Email |
 |------|----------|-------|
-| Aryan Gupta | 1024030764 | agupta_be24@thapar.edu |
+| Aryan Gupta | 1024030764 | agupta15_be24@thapar.edu |
 | Aksh Goyal | 1024030766 | agoyal2_be24@thapar.edu |
 | Naveen Bansal | 1024030767 | nbansal3_be24@thapar.edu |
 

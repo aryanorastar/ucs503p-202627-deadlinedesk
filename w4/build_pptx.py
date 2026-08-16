@@ -108,7 +108,7 @@ def build():
     prs.slide_width = Inches(13.333)
     prs.slide_height = Inches(7.5)
     blank = prs.slide_layouts[6]
-    N = 10
+    N = 8
 
     # ----- 1 Title -----
     s = prs.slides.add_slide(blank)
@@ -132,7 +132,6 @@ def build():
             "Submitted to: Dr. Raghav B. Venkataramaiyer",
         ],
         14, False, RGBColor(0xB8, 0xC4, 0xD2))
-    # no standard footer on title
 
     # ----- 2 Elevator / overview -----
     s = prs.slides.add_slide(blank)
@@ -247,34 +246,10 @@ def build():
         14, False, MUTED)
     footer(s, prs, 6, N)
 
-    # ----- 7 Timeline -----
+    # ----- 7 Team / resources (was 8; timeline removed) -----
     s = prs.slides.add_slide(blank)
     rect(s, 0, 0, prs.slide_width, prs.slide_height, PAPER)
-    header(s, prs, "5 · Timeline", "Week-by-week plan to EST")
-    table_slide(
-        s,
-        prs,
-        [
-            ["Week", "Focus", "Deliverable"],
-            ["W4", "Proposal and pitch", "PDF + slides + repository"],
-            ["W5–W6", "SRS, diagrams, auth scaffold", "SRS v0.1, CI green"],
-            ["W7", "Both end-to-end paths + tests", "Prototype (MST)"],
-            ["W8", "Improvement plan", "CE note"],
-            ["W11–W12", "UML depth, tests, UI polish", "Design pack"],
-            ["W15", "Second prototype", "Prototype 2"],
-            ["W17", "Final demo and report", "EST delivery"],
-        ],
-        [Inches(1.8), Inches(5.2), Inches(5.3)],
-    )
-    txt(s, Inches(0.5), Inches(5.9), Inches(12), Inches(0.5),
-        ["Buffer: W13 and mid-semester weeks absorb delay. Scope cuts prefer dashboards over core status logic."],
-        13, False, MUTED)
-    footer(s, prs, 7, N)
-
-    # ----- 8 Team / resources -----
-    s = prs.slides.add_slide(blank)
-    rect(s, 0, 0, prs.slide_width, prs.slide_height, PAPER)
-    header(s, prs, "6 · Resources", "Team roles and feasibility")
+    header(s, prs, "5 · Resources", "Team roles and feasibility")
     table_slide(
         s,
         prs,
@@ -288,19 +263,19 @@ def build():
     )
     txt(s, Inches(0.5), Inches(3.8), Inches(12.3), Inches(2.0),
         [
-            "Emails: agupta_be24@thapar.edu · agoyal2_be24@thapar.edu · nbansal3_be24@thapar.edu",
+            "Emails: agupta15_be24@thapar.edu · agoyal2_be24@thapar.edu · nbansal3_be24@thapar.edu",
             "Budget: no external funding. GitHub Actions, Pages, and open-source stack only.",
             "No specialised laboratory hardware. Staging on free-tier hosting.",
             "Repository: github.com/aryanorastar/ucs503p-202627-deadlinedesk",
             "Project page: aryanorastar.github.io/ucs503p-202627-deadlinedesk",
         ],
         14, False, MUTED)
-    footer(s, prs, 8, N)
+    footer(s, prs, 7, N)
 
-    # ----- 9 Risks -----
+    # ----- 8 Risks (was 9; close slide removed) -----
     s = prs.slides.add_slide(blank)
     rect(s, 0, 0, prs.slide_width, prs.slide_height, PAPER)
-    header(s, prs, "7 · Risks", "Anticipated issues and mitigations")
+    header(s, prs, "6 · Risks", "Anticipated issues and mitigations")
     table_slide(
         s,
         prs,
@@ -313,27 +288,9 @@ def build():
         ],
         [Inches(4.5), Inches(7.8)],
     )
-    footer(s, prs, 9, N)
+    footer(s, prs, 8, N)
 
-    # ----- 10 Close -----
-    s = prs.slides.add_slide(blank)
-    rect(s, 0, 0, prs.slide_width, prs.slide_height, NAVY)
-    rect(s, Inches(0.5), Inches(2.0), Inches(1.2), Inches(0.08), AMBER)
-    txt(s, Inches(0.5), Inches(2.3), Inches(12), Inches(1.0),
-        ["Request for approval"], 28, True, WHITE, name="Georgia")
-    txt(s, Inches(0.5), Inches(3.4), Inches(12), Inches(2.2),
-        [
-            "We request registration of DeadlineDesk on the team sheet.",
-            "Week-7 commitment: authentication, placement checklist path,",
-            "and academic submit / late / grade path with automated tests.",
-            "",
-            "Thank you. Questions are welcome.",
-        ],
-        18, False, RGBColor(0xD0, 0xD8, 0xE2))
-    txt(s, Inches(0.5), Inches(6.3), Inches(12), Inches(0.6),
-        ["Aryan Gupta  ·  Aksh Goyal  ·  Naveen Bansal  ·  UCS503P 2026–27"], 13, False, AMBER)
-
-    out = "w4/DeadlineDesk_W4_Pitch.pptx"
+    out = "w4/presentation.pptx"
     prs.save(out)
     print("Wrote", out)
 

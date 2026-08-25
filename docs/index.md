@@ -22,7 +22,8 @@ behind shared authentication and roles.
 
 ## Reports
 
-- Project proposal (LaTeX): [`project-proposal/`](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/tree/master/project-proposal)
+- Project proposal: [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/main.pdf) · [LaTeX source](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/main.tex)
+- Week 4 presentation: [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/w4/presentation.pdf)
 - Prototype-stage report: `project-report-prototype-stage/` (TBA)
 - Final report: `project-report-final/` (TBA)
 

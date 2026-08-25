@@ -58,3 +58,5 @@ make docs
 
 - Repository: https://github.com/aryanorastar/ucs503p-202627-deadlinedesk
 - Project page: https://aryanorastar.github.io/ucs503p-202627-deadlinedesk/
+- Project proposal (PDF): [project-proposal/main.pdf](project-proposal/main.pdf)
+- Week 4 presentation (PDF): [w4/presentation.pdf](w4/presentation.pdf)

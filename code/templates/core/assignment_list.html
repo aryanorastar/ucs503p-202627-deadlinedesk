@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Academics | DeadlineDesk{% endblock %}
+{% block content %}
+  <header class="page-header"><div><p class="eyebrow">Academic Dropbox</p><h1>Assignments</h1><p>Submission timestamps, late-policy decisions, review status, and grades.</p></div>{% if user.role == 'ta' %}<a class="button button-primary" href="{% url 'assignment_create' %}">Publish assignment</a>{% endif %}</header>
+  <section class="section-block"><div class="record-grid">
+    {% for assignment in assignments %}<a class="record-card" href="{% url 'assignment_detail' assignment.pk %}"><span class="record-kicker">Due {{ assignment.due_at|date:"d M Y" }}</span><h2>{{ assignment.title }}</h2><p>{{ assignment.get_late_policy_display }}. {{ assignment.submission_count }} submission{{ assignment.submission_count|pluralize }}.</p><time>{{ assignment.due_at|date:"g:i A" }}</time></a>
+    {% empty %}<div class="empty-state"><h2>No assignments</h2><p>{% if user.role == 'ta' %}Publish the first assignment to start the workflow.{% else %}Published assignments will appear here.{% endif %}</p></div>{% endfor %}
+  </div></section>
+{% endblock %}

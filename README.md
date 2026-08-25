@@ -1,62 +1,85 @@
-# UCS503P 202627 DeadlineDesk
+# DeadlineDesk
 
-This repository follows the
-[UCS503P project template](https://github.com/tiet-ucs503/ucs503p-202627odd-template)
-for UCS503P Project (2026-27 ODD).
+DeadlineDesk is a role-based campus web system for placement rounds and academic assignment deadlines. This repository is the UCS503P 2026-27 ODD semester project of Aryan Gupta, Aksh Goyal, and Naveen Bansal.
 
-**Project:** DeadlineDesk — a campus web system for
-placement rounds and academic assignment deadlines.
+The Week 7 prototype contains two complete thin paths:
 
-There are 3 reports in LaTeX format, namely *a*)
-Project Proposal, *b*) Project Report Prototype Stage,
-and *c*) Project Report Final -- each in their
-respective folders.
+1. Placement Admin creates a company and round, adds required checklist items, publishes the round, and creates a T-24h reminder log. A Student completes the checklist and receives a readiness result.
+2. TA publishes an assignment with a late policy. A Student submits a file, the system evaluates lateness and runs a transparent similarity stub, and the TA reviews and grades the submission.
 
-Journals are stacked under the folder `journals`, one
-folder for each team member.
+## Week 7 status
 
-The source code is contained within the folder `code`.
+- Role-based session authentication: Student, TA / Faculty, Placement Admin
+- Placement round state and effective open/closed window
+- Per-student document checklist and readiness decision
+- T-24h reminder persistence
+- Assignment late policies: reject, accept with penalty, grace window
+- File upload with server timestamp and size/type validation
+- Text-token overlap similarity stub, explicitly not a plagiarism detector
+- Submission review, grading, feedback, and audit log
+- 12 automated tests, including six late-policy boundary tests
+- GitHub Actions for application tests and MkDocs deployment
+- SRS, architecture/design, backlog, testing evidence, demo script, and weekly journals
 
-The documentation is under folder `docs`.
+## Run locally
 
-All other aspects of code organisation are left to the
-discretion of the user(s).
+Python 3.11 or newer is required.
 
-## Docs
-
-As of now, the `docs` is just an organised collection
-of markdown (`md`) files.  But the build procedure is
-using [`mkdocs`](https://google.com/search?q=mkdocs)
-backend.  As a result, any commit into the `master`
-branch of github repository would result in CI/CD based
-build and deployment of the documentation including the
-journals.
-
-For a local DEV-version of the docs for viewing and
-testing, install the local env and issue the following
-command:
-
-``` shell
-make docs
+```shell
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python code/manage.py migrate
+./.venv/bin/python code/manage.py seed_demo
+./.venv/bin/python code/manage.py runserver
 ```
 
-### Local `env` for `docs`
+Open <http://127.0.0.1:8000/>.
 
-``` shell
+### Demo accounts
 
+| Role | Username | Password |
+|---|---|---|
+| Student | `student` | `Student@W7` |
+| TA / Faculty | `ta` | `Faculty@W7` |
+| Placement Admin | `placement` | `Placement@W7` |
+
+These credentials are for local demonstration only. Production deployment must set a strong `DEADLINEDESK_SECRET_KEY`, disable debug mode, and create real accounts.
+
+## Test
+
+```shell
+./.venv/bin/python -m pytest
+./.venv/bin/python code/manage.py check
+./.venv/bin/python code/manage.py makemigrations --check
 ```
+
+## Repository map
+
+| Path | Purpose |
+|---|---|
+| `code/` | Django application, migrations, templates, CSS, tests, demo seed command |
+| `docs/` | SRS, design, testing, backlog, demo guide, course documentation |
+| `journals/` | Weekly technical journal for each team member |
+| `project-proposal/` | Week 4 LaTeX proposal and PDF |
+| `project-report-prototype-stage/` | Week 7 prototype report source and PDF |
+| `w4/` | Week 4 presentation PDF and one-page handout |
 
 ## Team
 
-| Name | Roll No. | Email |
-|------|----------|-------|
-| Aryan Gupta | 1024030764 | agupta15_be24@thapar.edu |
-| Aksh Goyal | 1024030766 | agoyal2_be24@thapar.edu |
-| Naveen Bansal | 1024030767 | nbansal3_be24@thapar.edu |
+| Name | Roll No. | Primary responsibility |
+|---|---|---|
+| Aryan Gupta | 1024030764 | Architecture, CI/CD, Placement Track |
+| Aksh Goyal | 1024030766 | Academic Dropbox, late-policy tests |
+| Naveen Bansal | 1024030767 | UI flows, documentation, demo script |
 
-## Links
+## Submission links
 
-- Repository: https://github.com/aryanorastar/ucs503p-202627-deadlinedesk
-- Project page: https://aryanorastar.github.io/ucs503p-202627-deadlinedesk/
-- Project proposal (PDF): [project-proposal/main.pdf](project-proposal/main.pdf)
-- Week 4 presentation (PDF): [w4/presentation.pdf](w4/presentation.pdf)
+- [Project proposal PDF](project-proposal/main.pdf)
+- [Week 4 presentation PDF](w4/presentation.pdf)
+- [Week 7 prototype report PDF](project-report-prototype-stage/main.pdf)
+- [Project page](https://aryanorastar.github.io/ucs503p-202627-deadlinedesk/)
+- [Repository](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk)
+
+## Scope boundary
+
+The Week 7 reminder channel is a persistent database log, not email delivery. The similarity score is a deterministic token-overlap stub for text files, not an NLP plagiarism system. PostgreSQL and hosted deployment remain later increments.

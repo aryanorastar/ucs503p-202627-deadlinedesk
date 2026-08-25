@@ -20,11 +20,15 @@ checklists, reminders) and an academic dropbox
 (submission, late policy, similarity stub, TA grading)
 behind shared authentication and roles.
 
+## Week 7 prototype
+
+The working Django prototype now implements both proposed thin paths, three role-based portals, automated late-policy evaluation, grading, reminder persistence, and an audit trail. See the [SRS](srs.md), [architecture and design](design.md), [test evidence](testing.md), [backlog](backlog.md), and [demo guide](demo.md).
+
 ## Reports
 
 - Project proposal: [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/main.pdf) · [LaTeX source](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/main.tex)
 - Week 4 presentation: [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/w4/presentation.pdf)
-- Prototype-stage report: `project-report-prototype-stage/` (TBA)
+- Prototype-stage report: [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-report-prototype-stage/main.pdf) · [LaTeX source](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-report-prototype-stage/main.tex)
 - Final report: `project-report-final/` (TBA)
 
 ## Installation

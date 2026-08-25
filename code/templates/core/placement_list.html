@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Placement | DeadlineDesk{% endblock %}
+{% block content %}
+  <header class="page-header"><div><p class="eyebrow">Placement Track</p><h1>Companies and rounds</h1><p>Application windows, required documents, readiness, and reminders.</p></div>{% if user.role == 'placement_admin' %}<div class="button-row"><a class="button button-secondary" href="{% url 'company_create' %}">Add company</a><a class="button button-primary" href="{% url 'round_create' %}">Create round</a></div>{% endif %}</header>
+  <section class="section-block">
+    <div class="record-grid">
+      {% for round in rounds %}<a class="record-card" href="{% url 'round_detail' round.pk %}"><span class="record-kicker">{{ round.company.name }}</span><h2>{{ round.title }}</h2><p>{{ round.opens_at|date:"d M, g:i A" }} to {{ round.closes_at|date:"d M, g:i A" }}</p><span class="status status-{{ round.effective_status }}">{{ round.effective_status_label }}</span></a>
+      {% empty %}<div class="empty-state"><h2>No placement rounds</h2><p>{% if user.role == 'placement_admin' %}Create a company and its first round to begin.{% else %}Published rounds will appear here.{% endif %}</p></div>{% endfor %}
+    </div>
+  </section>
+{% endblock %}

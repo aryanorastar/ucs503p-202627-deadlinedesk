@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | DeadlineDesk{% endblock %}
+{% block content %}
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">{{ user.get_role_display }} portal</p>
+      <h1>Good {{ greeting }}, {{ user.first_name|default:user.username }}.</h1>
+      <p>Here is the work that needs attention next.</p>
+    </div>
+    <time class="date-block" datetime="{{ now|date:'c' }}"><strong>{{ now|date:"d" }}</strong><span>{{ now|date:"M Y" }}</span></time>
+  </header>
+
+  {% if user.role == 'student' %}
+    <section class="section-block">
+      <div class="section-heading"><div><h2>Open placement rounds</h2><p>Complete every required item before the window closes.</p></div><a href="{% url 'placement_list' %}">View all</a></div>
+      <div class="record-grid record-grid-featured">
+        {% for round in open_rounds %}
+          <a class="record-card" href="{% url 'round_detail' round.pk %}"><span class="record-kicker">{{ round.company.name }}</span><h3>{{ round.title }}</h3><p>Closes {{ round.closes_at|date:"d M, g:i A" }}</p><span class="status status-open">Open</span></a>
+        {% empty %}<div class="empty-state"><h3>No open rounds</h3><p>Published placement rounds will appear here.</p></div>{% endfor %}
+      </div>
+    </section>
+    <div class="dashboard-split">
+      <section class="section-block"><div class="section-heading"><div><h2>Upcoming assignments</h2><p>Deadlines shown in India Standard Time.</p></div><a href="{% url 'assignment_list' %}">View all</a></div>
+        <div class="record-list">{% for assignment in assignments %}<a href="{% url 'assignment_detail' assignment.pk %}"><div><strong>{{ assignment.title }}</strong><span>{{ assignment.get_late_policy_display }}</span></div><time>{{ assignment.due_at|date:"d M, g:i A" }}</time></a>{% empty %}<div class="empty-state compact"><p>No upcoming assignments.</p></div>{% endfor %}</div>
+      </section>
+      <section class="section-block"><div class="section-heading"><div><h2>Recent submissions</h2><p>Your latest academic activity.</p></div></div>
+        <div class="record-list">{% for item in recent_submissions %}<a href="{% url 'submission_detail' item.pk %}"><div><strong>{{ item.assignment.title }}</strong><span>{{ item.get_late_status_display }}</span></div><span class="status">{{ item.get_status_display }}</span></a>{% empty %}<div class="empty-state compact"><p>No submissions yet.</p></div>{% endfor %}</div>
+      </section>
+    </div>
+  {% elif user.role == 'ta' %}
+    <div class="action-strip"><div><strong>Academic Dropbox</strong><span>Publish a deadline and apply its late policy automatically.</span></div><a class="button button-primary" href="{% url 'assignment_create' %}">Publish assignment</a></div>
+    <div class="dashboard-split">
+      <section class="section-block"><div class="section-heading"><div><h2>Your assignments</h2><p>Submission counts update automatically.</p></div><a href="{% url 'assignment_list' %}">View all</a></div>
+        <div class="record-list">{% for assignment in assignments %}<a href="{% url 'assignment_detail' assignment.pk %}"><div><strong>{{ assignment.title }}</strong><span>Due {{ assignment.due_at|date:"d M, g:i A" }}</span></div><span>{{ assignment.submission_count }} submitted</span></a>{% empty %}<div class="empty-state compact"><p>No assignments published.</p></div>{% endfor %}</div>
+      </section>
+      <section class="section-block"><div class="section-heading"><div><h2>Needs review</h2><p>Submissions not yet graded.</p></div></div>
+        <div class="record-list">{% for item in pending_submissions %}<a href="{% url 'submission_detail' item.pk %}"><div><strong>{{ item.student }}</strong><span>{{ item.assignment.title }}</span></div><span class="status">{{ item.get_status_display }}</span></a>{% empty %}<div class="empty-state compact"><p>Review queue is clear.</p></div>{% endfor %}</div>
+      </section>
+    </div>
+  {% else %}
+    <div class="action-strip"><div><strong>Placement Track</strong><span>Create a company round, checklist, and T-24h reminder log.</span></div><div class="button-row"><a class="button button-secondary" href="{% url 'company_create' %}">Add company</a><a class="button button-primary" href="{% url 'round_create' %}">Create round</a></div></div>
+    <div class="dashboard-split">
+      <section class="section-block"><div class="section-heading"><div><h2>Placement rounds</h2><p>Draft, publish, open, and close windows.</p></div><a href="{% url 'placement_list' %}">View all</a></div>
+        <div class="record-list">{% for round in rounds %}<a href="{% url 'round_detail' round.pk %}"><div><strong>{{ round.company.name }}</strong><span>{{ round.title }}</span></div><span class="status">{{ round.effective_status_label }}</span></a>{% empty %}<div class="empty-state compact"><p>No rounds created.</p></div>{% endfor %}</div>
+      </section>
+      <section class="section-block"><div class="section-heading"><div><h2>Reminder log</h2><p>Database-first delivery record for the prototype.</p></div></div>
+        <div class="record-list">{% for reminder in scheduled_reminders %}<a href="{% url 'round_detail' reminder.placement_round.pk %}"><div><strong>{{ reminder.placement_round.company.name }}</strong><span>{{ reminder.placement_round.title }}</span></div><time>{{ reminder.scheduled_for|date:"d M, g:i A" }}</time></a>{% empty %}<div class="empty-state compact"><p>No reminders scheduled.</p></div>{% endfor %}</div>
+      </section>
+    </div>
+  {% endif %}
+
+  <section class="section-block activity-block"><div class="section-heading"><div><h2>Recent activity</h2><p>Persistent audit events from both modules.</p></div></div>
+    <div class="activity-grid">{% for event in recent_activity %}<div><strong>{{ event.action_label }}</strong><span>{{ event.actor|default:"System" }} on {{ event.entity_type }} #{{ event.entity_id }}</span><time>{{ event.created_at|timesince }} ago</time></div>{% empty %}<div class="empty-state compact"><p>Activity will appear after the first action.</p></div>{% endfor %}</div>
+  </section>
+{% endblock %}

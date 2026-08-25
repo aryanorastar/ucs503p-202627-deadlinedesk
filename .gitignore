@@ -2,6 +2,11 @@
 .venv/
 __pycache__/
 *.pyc
+.pytest_cache/
+db.sqlite3
+media/
+staticfiles/
+site/
 
 # LaTeX intermediates
 *.aux
@@ -22,5 +27,6 @@ __pycache__/
 _drafts_w4/
 _template_tmp/
 *.o
+code/dist/
 ~$*
 .~*

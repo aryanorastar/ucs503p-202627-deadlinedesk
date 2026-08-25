@@ -1,0 +1,3 @@
+{% extends "base.html" %}
+{% block title %}Access denied | DeadlineDesk{% endblock %}
+{% block content %}<div class="empty-state page-error"><span class="record-kicker">403</span><h1>That action belongs to another role.</h1><p>Return to your dashboard and continue with the tasks available to your account.</p><a class="button button-primary" href="{% url 'dashboard' %}">Go to dashboard</a></div>{% endblock %}

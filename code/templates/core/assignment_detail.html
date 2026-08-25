@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ assignment.title }} | DeadlineDesk{% endblock %}
+{% block content %}
+  <a class="back-link" href="{% url 'assignment_list' %}">All assignments</a>
+  <header class="detail-header"><div><span class="record-kicker">{{ assignment.get_late_policy_display }}</span><h1>{{ assignment.title }}</h1><p>Published by {{ assignment.created_by }}. Due {{ assignment.due_at|date:"d M Y, g:i A" }} IST.</p></div>{% if user.role == 'student' and not submission and decision.accepted %}<a class="button button-primary" href="{% url 'assignment_submit' assignment.pk %}">Submit work</a>{% endif %}</header>
+  <div class="detail-split">
+    <section class="section-block prose"><h2>Brief</h2>{{ assignment.description|linebreaks }}<h3>Late policy</h3><p>{{ assignment.get_late_policy_display }}{% if assignment.late_policy == 'grace' %}: {{ assignment.grace_minutes }} minutes{% elif assignment.late_policy == 'penalty' %}: {{ assignment.penalty_percent }}% penalty{% endif %}.</p></section>
+    <aside class="section-block">
+      {% if user.role == 'student' %}
+        <div class="section-heading"><div><h2>Your submission</h2><p>The server timestamp determines late status.</p></div></div>
+        {% if submission %}<a class="submission-summary" href="{% url 'submission_detail' submission.pk %}"><strong>{{ submission.get_status_display }}</strong><span>{{ submission.get_late_status_display }}</span><time>{{ submission.submitted_at|date:"d M, g:i A" }}</time></a>
+        {% elif decision.accepted %}<div class="empty-state compact"><p>{{ decision.reason }}. Upload is available.</p><a class="button button-primary" href="{% url 'assignment_submit' assignment.pk %}">Submit work</a></div>
+        {% else %}<div class="message message-error">{{ decision.reason }}</div>{% endif %}
+      {% else %}
+        <div class="section-heading"><div><h2>Submissions</h2><p>Open an entry to review or grade it.</p></div></div>
+        <div class="record-list">{% for item in submissions %}<a href="{% url 'submission_detail' item.pk %}"><div><strong>{{ item.student }}</strong><span>{{ item.get_late_status_display }}</span></div><span class="status">{{ item.get_status_display }}</span></a>{% empty %}<div class="empty-state compact"><p>No submissions received.</p></div>{% endfor %}</div>
+      {% endif %}
+    </aside>
+  </div>
+{% endblock %}

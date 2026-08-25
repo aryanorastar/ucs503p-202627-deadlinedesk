@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} | DeadlineDesk{% endblock %}
+{% block content %}
+  <div class="form-layout">
+    <header><a class="back-link" href="javascript:history.back()">Back</a><h1>{{ title }}</h1>{% if notice %}<p class="notice">{{ notice }}</p>{% else %}<p>Fields marked with an asterisk are required.</p>{% endif %}</header>
+    <form method="post" enctype="multipart/form-data" class="form-panel" novalidate>
+      {% csrf_token %}
+      {% if form.non_field_errors %}<div class="form-errors">{{ form.non_field_errors }}</div>{% endif %}
+      {% for field in form %}
+        <div class="field{% if field.errors %} field-error{% endif %}">
+          <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.field.required %}<span aria-hidden="true"> *</span>{% endif %}</label>
+          {{ field }}
+          {% if field.help_text %}<small>{{ field.help_text }}</small>{% endif %}
+          {% for error in field.errors %}<span class="error-text">{{ error }}</span>{% endfor %}
+        </div>
+      {% endfor %}
+      <div class="button-row"><button class="button button-primary" type="submit">{{ submit_label }}</button><a class="button button-quiet" href="javascript:history.back()">Cancel</a></div>
+    </form>
+  </div>
+{% endblock %}

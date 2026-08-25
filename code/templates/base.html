@@ -1,0 +1,61 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>{% block title %}DeadlineDesk{% endblock %}</title>
+  <link rel="icon" href="{% static 'favicon.png' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  {% if user.is_authenticated %}
+    <header class="site-header">
+      <div class="shell nav-shell">
+        <a class="brand" href="{% url 'dashboard' %}" aria-label="DeadlineDesk dashboard">
+          <span class="brand-mark" aria-hidden="true">DD</span>
+          <span>DeadlineDesk</span>
+        </a>
+        <nav class="main-nav" aria-label="Primary navigation">
+          <a href="{% url 'dashboard' %}"{% if request.resolver_match.url_name == 'dashboard' %} aria-current="page"{% endif %}>Dashboard</a>
+          <a href="{% url 'placement_list' %}"{% if 'placement' in request.path %} aria-current="page"{% endif %}>Placement</a>
+          <a href="{% url 'assignment_list' %}"{% if 'academic' in request.path or 'submission' in request.path %} aria-current="page"{% endif %}>Academics</a>
+        </nav>
+        <div class="account-area">
+          <div class="account-copy">
+            <strong>{{ user.get_full_name|default:user.username }}</strong>
+            <span>{{ user.get_role_display }}</span>
+          </div>
+          <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button class="button button-quiet" type="submit">Sign out</button>
+          </form>
+        </div>
+      </div>
+    </header>
+  {% endif %}
+
+  {% if messages %}
+    <div class="shell message-stack" aria-live="polite">
+      {% for message in messages %}
+        <div class="message message-{{ message.tags|default:'info' }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <main id="main" class="{% block main_class %}shell page{% endblock %}">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% if user.is_authenticated %}
+    <footer class="site-footer">
+      <div class="shell footer-shell">
+        <span>UCS503P Week 7 prototype</span>
+        <span>TIET Patiala</span>
+      </div>
+    </footer>
+  {% endif %}
+</body>
+</html>

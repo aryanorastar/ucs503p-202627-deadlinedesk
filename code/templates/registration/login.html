@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Sign in | DeadlineDesk{% endblock %}
+{% block main_class %}auth-layout{% endblock %}
+{% block content %}
+  <section class="auth-intro">
+    <p class="eyebrow">TIET campus deadline system</p>
+    <h1>One desk for every cutoff.</h1>
+    <p>Track placement readiness and academic submissions with clear roles, policies, and timestamps.</p>
+    <div class="auth-facts" aria-label="Prototype capabilities">
+      <div><strong>3</strong><span>role-based portals</span></div>
+      <div><strong>2</strong><span>end-to-end workflows</span></div>
+      <div><strong>1</strong><span>shared audit trail</span></div>
+    </div>
+  </section>
+  <section class="auth-panel" aria-labelledby="login-heading">
+    <div>
+      <span class="brand-mark auth-mark" aria-hidden="true">DD</span>
+      <h2 id="login-heading">Sign in to DeadlineDesk</h2>
+      <p>Use your assigned student, TA, or placement-admin account.</p>
+    </div>
+    {% if form.non_field_errors %}
+      <div class="form-errors">{{ form.non_field_errors }}</div>
+    {% endif %}
+    <form method="post" class="stack-form">
+      {% csrf_token %}
+      <div class="field">
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        {{ form.username }}
+      </div>
+      <div class="field">
+        <label for="{{ form.password.id_for_label }}">Password</label>
+        {{ form.password }}
+      </div>
+      {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+      <button class="button button-primary button-wide" type="submit">Sign in</button>
+    </form>
+    <p class="auth-help">Demo credentials are documented in the repository README.</p>
+  </section>
+{% endblock %}

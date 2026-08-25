@@ -1,58 +1,29 @@
-﻿SHELL           := /usr/bin/zsh
+PYTHON ?= .venv/bin/python
 
-### ---------------------------------------------------
-### Icons
-### ---------------------------------------------------
-ICONS_FOLDER	:= assets/icons
-ICONS		+= simple/github simple/googlecolab simple/googleslides
+.PHONY: setup run test check migrate seed docs docbuild
 
-### ---------------------------------------------------
-### Make Documentation
-### ---------------------------------------------------
-ENV 		:= emacs
-CONDA_ROOT	:= ~/miniconda3
+setup:
+	python3 -m venv .venv
+	$(PYTHON) -m pip install -r requirements.txt
 
-# HOST left blank to enable the default defined in the
-# underlying toolkit
-HOST		:=
+run:
+	$(PYTHON) code/manage.py runserver
 
-# The default behaviour for PORT in this Makefile is
-# defined to use a random 4-digit port.  To use a
-# specific port use PORT=NNNN while invocation.  To
-# revert to default behaviour of the underlying
-# toolkit, explicitly invoke with empty value,
-# i.e. PORT="".
-PORT		:=
-localport	 = $(shell				\
-  echo $$(( 1000 + ($$RANDOM % 9000) ))			\
-)
+test:
+	$(PYTHON) -m pytest
 
-# Use `ADDR="HOST:PORT"' as a shorthand instead of
-# `HOST="HOST" PORT="PORT"'
-ADDR		:= $(and $(or $(HOST),$(PORT)),		\
-  $(or $(HOST),localhost):$(or $(PORT),$(localport))	\
-)
-ADDR_SWITCH	:= $(and $(ADDR),-a $(ADDR))
+check:
+	$(PYTHON) code/manage.py check
+	$(PYTHON) code/manage.py makemigrations --check
 
-PYTHONPATH	:= $${PYTHONPATH}:$${PWD}:$${PWD}/src
+migrate:
+	$(PYTHON) code/manage.py migrate
 
-mkdocs		+= source $(CONDA_ROOT)/bin/activate
-mkdocs		+= $(ENV) ; PYTHONPATH=$(PYTHONPATH)
-mkdocs		+= mkdocs
+seed:
+	$(PYTHON) code/manage.py seed_demo
 
-docserve : icons
-	$(mkdocs) serve $(ADDR_SWITCH) --livereload
+docs:
+	$(PYTHON) -m mkdocs serve
 
-docbuild : icons
-	$(mkdocs) build
-
-docs : docserve
-
-icons : $(ICONS_FOLDER) ${ICONS:%=$(ICONS_FOLDER)/%.svg}
-$(ICONS_FOLDER)/simple/%.svg: $(ICONS_FOLDER)/simple
-	wget "https://simpleicons.org/icons/$(*).svg" 	\
-	  -O $(@)
-
-$(ICONS_FOLDER)/simple $(ICONS_FOLDER) :
-	mkdir -p $(@)
-### ---------------------------------------------------
+docbuild:
+	$(PYTHON) -m mkdocs build

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Submission | DeadlineDesk{% endblock %}
+{% block content %}
+  <a class="back-link" href="{% url 'assignment_detail' submission.assignment.pk %}">{{ submission.assignment.title }}</a>
+  <header class="detail-header"><div><span class="record-kicker">{{ submission.student }}</span><h1>Submission record</h1><p>Received {{ submission.submitted_at|date:"d M Y, g:i:s A" }} IST.</p></div><span class="status">{{ submission.get_status_display }}</span></header>
+  <div class="metric-strip">
+    <div><span>Late decision</span><strong>{{ submission.get_late_status_display }}</strong></div>
+    <div><span>Penalty</span><strong>{{ submission.penalty_percent }}%</strong></div>
+    <div><span>Similarity stub</span><strong>{{ submission.similarity_score }}%</strong></div>
+  </div>
+  <div class="detail-split">
+    <section class="section-block prose"><h2>Submitted work</h2><p><a href="{% url 'submission_download' submission.pk %}">Download {{ submission.file.name }}</a></p>{% if submission.note %}<h3>Student note</h3><p>{{ submission.note }}</p>{% endif %}<div class="notice"><strong>Similarity scope</strong><span>This score is simple token overlap for text files. It is not a plagiarism verdict.</span></div></section>
+    <aside class="section-block"><div class="section-heading"><div><h2>Grade</h2><p>Feedback becomes visible immediately after publishing.</p></div></div>
+      {% if grade %}<div class="grade-display"><strong>{{ grade.score }} / {{ grade.max_score }}</strong><p>{{ grade.feedback|default:"No written feedback." }}</p><span>Graded by {{ grade.graded_by }}</span></div>
+      {% elif user.role == 'ta' %}<div class="empty-state compact"><p>No grade has been published.</p><div class="button-row">{% if submission.status == 'submitted' %}<form method="post" action="{% url 'submission_review' submission.pk %}">{% csrf_token %}<button class="button button-secondary" type="submit">Start review</button></form>{% endif %}<a class="button button-primary" href="{% url 'submission_grade' submission.pk %}">Grade work</a></div></div>
+      {% else %}<div class="empty-state compact"><p>Your TA has not published a grade yet.</p></div>{% endif %}
+    </aside>
+  </div>
+{% endblock %}

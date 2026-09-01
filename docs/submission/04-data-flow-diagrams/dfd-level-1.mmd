@@ -1,38 +1,31 @@
 flowchart LR
-    S[Student]
-    T[TA / Faculty]
-    P[Placement Admin]
-
-    A((1.0 Authentication and Roles))
-    PT((2.0 Placement Track))
-    AD((3.0 Academic Dropbox))
-    RA((4.0 Reminder and Audit))
-
+    Admin[Placement Admin]
+    Student[Student]
+    TA[TA / Faculty]
+    Roles[All authenticated roles]
+    Auth((1.0 Authentication and Roles))
+    Placement((2.0 Placement Track))
+    Academic((3.0 Academic Dropbox))
+    Audit((4.0 Reminder and Audit))
     D1[(D1 Users and Roles)]
     D2[(D2 Placement Data)]
     D3[(D3 Academic Data)]
     D4[(D4 Audit and Reminder Logs)]
 
-    S -->|credentials| A
-    T -->|credentials| A
-    P -->|credentials| A
-    A <--> D1
-    A -->|role context| PT
-    A -->|role context| AD
-
-    S -->|checklist updates| PT
-    PT -->|rounds and readiness| S
-    P -->|companies, rounds, requirements| PT
-    PT -->|publication state| P
-    PT <--> D2
-
-    S -->|submission file| AD
-    AD -->|late decision, grade, feedback| S
-    T -->|assignment policy, review, grade| AD
-    AD -->|submission and score| T
-    AD <--> D3
-
-    PT -->|publish events| RA
-    AD -->|workflow events| RA
-    RA <--> D4
-    RA -->|T-24h reminder status| P
+    Roles -->|credentials| Auth
+    Auth -->|role context| Placement
+    Auth -->|role context| Academic
+    Admin -->|round and checklist data| Placement
+    Placement -->|publication status| Admin
+    Student -->|checklist updates| Placement
+    Placement -->|rounds and readiness| Student
+    Student -->|submission file| Academic
+    Academic -->|late result, grade and feedback| Student
+    TA -->|assignment, review and grade| Academic
+    Academic -->|submission data| TA
+    Auth <--> D1
+    Placement <--> D2
+    Academic <--> D3
+    Placement -->|publish event| Audit
+    Academic -->|workflow event| Audit
+    Audit <--> D4

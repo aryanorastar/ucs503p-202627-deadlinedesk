@@ -3,42 +3,34 @@ flowchart LR
     ta[TA / Faculty]
     admin[Placement Admin]
 
-    subgraph DD[DeadlineDesk system boundary]
-        auth([Authenticate and open role dashboard])
-        rounds([View published placement rounds])
-        checklist([Complete document checklist])
-        readiness([View placement readiness])
-        assignments([View published assignments])
-        submit([Upload assignment submission])
-        result([View late decision, grade, and feedback])
-        publishAssignment([Publish assignment and late policy])
-        review([Review submission and similarity stub])
-        grade([Grade submission and add feedback])
-        manageRound([Create company and placement round])
-        addItems([Add required checklist items])
-        publishRound([Publish round and persist T-24h reminder])
+    subgraph DD[DeadlineDesk]
+        subgraph StudentCases[Student use cases]
+            rounds([View placement rounds])
+            checklist([Complete document checklist])
+            readiness([View readiness result])
+            assignments([View assignments])
+            submit([Upload submission])
+            outcome([View late decision, grade and feedback])
+        end
+        subgraph StaffCases[Staff use cases]
+            publishAssignment([Publish assignment and late policy])
+            review([Review submission])
+            grade([Grade and add feedback])
+            manageRound([Create company and round])
+            addItem([Add checklist items])
+            publishRound([Publish round and log reminder])
+        end
     end
 
-    student --> auth
-    student --> rounds
-    student --> checklist
-    student --> readiness
-    student --> assignments
-    student --> submit
-    student --> result
-
-    ta --> auth
-    ta --> publishAssignment
-    ta --> review
-    ta --> grade
-
-    admin --> auth
-    admin --> manageRound
-    admin --> addItems
-    admin --> publishRound
-
-    checklist -. updates .-> readiness
-    submit -. applies .-> publishAssignment
-    review -. precedes .-> grade
-    manageRound -. requires .-> addItems
-    addItems -. enables .-> publishRound
+    student --- rounds
+    student --- checklist
+    student --- readiness
+    student --- assignments
+    student --- submit
+    student --- outcome
+    ta --- publishAssignment
+    ta --- review
+    ta --- grade
+    admin --- manageRound
+    admin --- addItem
+    admin --- publishRound

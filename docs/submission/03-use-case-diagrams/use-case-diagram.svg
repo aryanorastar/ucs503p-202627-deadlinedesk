@@ -1,46 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1100" viewBox="0 0 1800 1100" role="img" aria-labelledby="title desc">
   <title id="title">DeadlineDesk use-case diagram</title>
-  <desc id="desc">Student, TA or Faculty, and Placement Admin actors connected to placement and academic use cases.</desc>
+  <desc id="desc">Student, TA or Faculty, and Placement Admin actors associated with the Week 7 DeadlineDesk use cases.</desc>
   <defs>
     <style>
-      .bg{fill:#f7f5ef}.boundary{fill:#fff;stroke:#14213d;stroke-width:3}.actor{fill:#14213d}.actor-label{font:700 25px Arial,sans-serif;fill:#14213d;text-anchor:middle}.uc{fill:#fff8e7;stroke:#d38b00;stroke-width:2}.uc2{fill:#eef4ff;stroke:#275dad;stroke-width:2}.uct{font:600 20px Arial,sans-serif;fill:#14213d;text-anchor:middle}.title{font:700 40px Arial,sans-serif;fill:#14213d}.section{font:700 24px Arial,sans-serif;fill:#6c7280;letter-spacing:2px}.edge{stroke:#546078;stroke-width:2;fill:none}.dash{stroke:#8b93a4;stroke-width:2;stroke-dasharray:8 7;fill:none}.note{font:16px Arial,sans-serif;fill:#6c7280;text-anchor:middle}
+      .bg{fill:#f7f5ef}.boundary{fill:#ffffff;stroke:#12213f;stroke-width:4}.line{stroke:#53617b;stroke-width:3;fill:none}.actor{fill:#12213f}.actorline{stroke:#12213f;stroke-width:4;fill:none}.actorname{font:700 27px Arial,sans-serif;fill:#12213f;text-anchor:middle;word-spacing:4px}.ucp{fill:#fff5da;stroke:#d88a00;stroke-width:3}.uca{fill:#edf3ff;stroke:#2862b8;stroke-width:3}.uct{font:600 25px Arial,sans-serif;fill:#12213f;text-anchor:middle;word-spacing:4px}.title{font:700 45px Arial,sans-serif;fill:#12213f}.section{font:700 22px Arial,sans-serif;fill:#687389;letter-spacing:2px}.legend{font:20px Arial,sans-serif;fill:#5f687a;word-spacing:3px}
     </style>
   </defs>
-  <rect class="bg" width="1600" height="1000"/>
-  <text class="title" x="800" y="58" text-anchor="middle">DeadlineDesk — Use-Case Diagram</text>
-  <rect class="boundary" x="260" y="92" width="1080" height="850" rx="22"/>
-  <text class="section" x="800" y="130" text-anchor="middle">SYSTEM BOUNDARY</text>
+  <rect class="bg" width="1800" height="1100"/>
+  <text class="title" x="900" y="64" text-anchor="middle">DeadlineDesk&#160;-&#160;Use-Case&#160;Diagram</text>
+  <rect class="boundary" x="260" y="105" width="1280" height="900" rx="24"/>
+  <text class="section" x="610" y="150" text-anchor="middle">STUDENT ACTIONS</text>
+  <text class="section" x="1190" y="150" text-anchor="middle">STAFF ACTIONS</text>
 
-  <!-- Actors -->
-  <g transform="translate(118 255)"><circle class="actor" cx="0" cy="0" r="28"/><line class="edge" x1="0" y1="28" x2="0" y2="105"/><line class="edge" x1="-48" y1="55" x2="48" y2="55"/><line class="edge" x1="0" y1="105" x2="-42" y2="165"/><line class="edge" x1="0" y1="105" x2="42" y2="165"/><text class="actor-label" x="0" y="205">Student</text></g>
-  <g transform="translate(1482 280)"><circle class="actor" cx="0" cy="0" r="28"/><line class="edge" x1="0" y1="28" x2="0" y2="105"/><line class="edge" x1="-48" y1="55" x2="48" y2="55"/><line class="edge" x1="0" y1="105" x2="-42" y2="165"/><line class="edge" x1="0" y1="105" x2="42" y2="165"/><text class="actor-label" x="0" y="205">TA / Faculty</text></g>
-  <g transform="translate(1482 680)"><circle class="actor" cx="0" cy="0" r="28"/><line class="edge" x1="0" y1="28" x2="0" y2="105"/><line class="edge" x1="-48" y1="55" x2="48" y2="55"/><line class="edge" x1="0" y1="105" x2="-42" y2="165"/><line class="edge" x1="0" y1="105" x2="42" y2="165"/><text class="actor-label" x="0" y="205">Placement Admin</text></g>
-
-  <!-- Association lines behind use cases -->
-  <path class="edge" d="M165 310 L410 190 M165 320 L410 295 M165 330 L410 400 M165 340 L410 505 M165 350 L410 610 M165 360 L410 715 M165 370 L410 820"/>
-  <path class="edge" d="M1435 335 L1190 265 M1435 345 L1190 390 M1435 355 L1190 515 M1435 735 L1190 665 M1435 745 L1190 790 M1435 755 L1190 890"/>
+  <!-- Associations are drawn first so use-case nodes remain on top. -->
+  <path class="line" d="M165 500 L420 235 M165 500 L420 375 M165 500 L420 515 M165 500 L420 655 M165 500 L420 795 M165 500 L420 935"/>
+  <path class="line" d="M1635 315 L1370 245 M1635 315 L1370 385 M1635 315 L1370 525"/>
+  <path class="line" d="M1635 785 L1370 665 M1635 785 L1370 805 M1635 785 L1370 945"/>
 
   <!-- Student use cases -->
-  <ellipse class="uc" cx="570" cy="190" rx="165" ry="48"/><text class="uct" x="570" y="185"><tspan x="570">Authenticate and open</tspan><tspan x="570" dy="24">role dashboard</tspan></text>
-  <ellipse class="uc" cx="570" cy="295" rx="165" ry="48"/><text class="uct" x="570" y="302">View placement rounds</text>
-  <ellipse class="uc" cx="570" cy="400" rx="165" ry="48"/><text class="uct" x="570" y="395"><tspan x="570">Complete document</tspan><tspan x="570" dy="24">checklist</tspan></text>
-  <ellipse class="uc" cx="570" cy="505" rx="165" ry="48"/><text class="uct" x="570" y="512">View readiness result</text>
-  <ellipse class="uc2" cx="570" cy="610" rx="165" ry="48"/><text class="uct" x="570" y="617">View assignments</text>
-  <ellipse class="uc2" cx="570" cy="715" rx="165" ry="48"/><text class="uct" x="570" y="722">Upload submission</text>
-  <ellipse class="uc2" cx="570" cy="820" rx="165" ry="48"/><text class="uct" x="570" y="815"><tspan x="570">View late decision,</tspan><tspan x="570" dy="24">grade, and feedback</tspan></text>
+  <ellipse class="ucp" cx="620" cy="235" rx="200" ry="55"/><text class="uct" x="620" y="243">View&#160;placement&#160;rounds</text>
+  <ellipse class="ucp" cx="620" cy="375" rx="200" ry="55"/><text class="uct" x="620" y="368"><tspan x="620">Complete&#160;document</tspan><tspan x="620" dy="29">checklist</tspan></text>
+  <ellipse class="ucp" cx="620" cy="515" rx="200" ry="55"/><text class="uct" x="620" y="523">View&#160;readiness&#160;result</text>
+  <ellipse class="uca" cx="620" cy="655" rx="200" ry="55"/><text class="uct" x="620" y="663">View&#160;assignments</text>
+  <ellipse class="uca" cx="620" cy="795" rx="200" ry="55"/><text class="uct" x="620" y="803">Upload&#160;submission</text>
+  <ellipse class="uca" cx="620" cy="935" rx="200" ry="55"/><text class="uct" x="620" y="928"><tspan x="620">View&#160;late&#160;decision,</tspan><tspan x="620" dy="29">grade&#160;and&#160;feedback</tspan></text>
 
   <!-- Staff use cases -->
-  <ellipse class="uc2" cx="1030" cy="265" rx="180" ry="52"/><text class="uct" x="1030" y="260"><tspan x="1030">Publish assignment</tspan><tspan x="1030" dy="24">and late policy</tspan></text>
-  <ellipse class="uc2" cx="1030" cy="390" rx="180" ry="52"/><text class="uct" x="1030" y="385"><tspan x="1030">Review submission and</tspan><tspan x="1030" dy="24">similarity stub</tspan></text>
-  <ellipse class="uc2" cx="1030" cy="515" rx="180" ry="52"/><text class="uct" x="1030" y="510"><tspan x="1030">Grade submission</tspan><tspan x="1030" dy="24">and add feedback</tspan></text>
-  <ellipse class="uc" cx="1030" cy="665" rx="180" ry="52"/><text class="uct" x="1030" y="660"><tspan x="1030">Create company and</tspan><tspan x="1030" dy="24">placement round</tspan></text>
-  <ellipse class="uc" cx="1030" cy="790" rx="180" ry="52"/><text class="uct" x="1030" y="785"><tspan x="1030">Add required</tspan><tspan x="1030" dy="24">checklist items</tspan></text>
-  <ellipse class="uc" cx="1030" cy="890" rx="180" ry="40"/><text class="uct" x="1030" y="885"><tspan x="1030">Publish round and persist</tspan><tspan x="1030" dy="24">T-24h reminder</tspan></text>
+  <ellipse class="uca" cx="1170" cy="245" rx="200" ry="55"/><text class="uct" x="1170" y="238"><tspan x="1170">Publish&#160;assignment</tspan><tspan x="1170" dy="29">and&#160;late&#160;policy</tspan></text>
+  <ellipse class="uca" cx="1170" cy="385" rx="200" ry="55"/><text class="uct" x="1170" y="393">Review&#160;submission</text>
+  <ellipse class="uca" cx="1170" cy="525" rx="200" ry="55"/><text class="uct" x="1170" y="518"><tspan x="1170">Grade&#160;submission</tspan><tspan x="1170" dy="29">and&#160;add&#160;feedback</tspan></text>
+  <ellipse class="ucp" cx="1170" cy="665" rx="200" ry="55"/><text class="uct" x="1170" y="658"><tspan x="1170">Create&#160;company</tspan><tspan x="1170" dy="29">and&#160;placement&#160;round</tspan></text>
+  <ellipse class="ucp" cx="1170" cy="805" rx="200" ry="55"/><text class="uct" x="1170" y="798"><tspan x="1170">Add&#160;required</tspan><tspan x="1170" dy="29">checklist&#160;items</tspan></text>
+  <ellipse class="ucp" cx="1170" cy="945" rx="200" ry="55"/><text class="uct" x="1170" y="938"><tspan x="1170">Publish&#160;round&#160;and&#160;log</tspan><tspan x="1170" dy="29">T-24h&#160;reminder</tspan></text>
 
-  <!-- Include / dependency relationships -->
-  <path class="dash" d="M735 400 C805 400 805 505 735 505"/><text class="note" x="790" y="460">updates</text>
-  <path class="dash" d="M850 390 C790 500 790 650 735 715"/><text class="note" x="805" y="585">policy applies</text>
-  <path class="dash" d="M1030 442 L1030 463"/><text class="note" x="1110" y="458">precedes</text>
-  <path class="dash" d="M1030 717 L1030 738"/><text class="note" x="1120" y="734">requires</text>
-  <path class="dash" d="M1030 842 L1030 850"/><text class="note" x="1120" y="858">enables</text>
+  <!-- Actors -->
+  <g transform="translate(120 405)"><circle class="actor" cx="0" cy="0" r="30"/><path class="actorline" d="M0 30 V118 M-55 62 H55 M0 118 L-48 185 M0 118 L48 185"/><text class="actorname" x="0" y="230">Student</text></g>
+  <g transform="translate(1680 220)"><circle class="actor" cx="0" cy="0" r="30"/><path class="actorline" d="M0 30 V118 M-55 62 H55 M0 118 L-48 185 M0 118 L48 185"/><text class="actorname" x="0" y="230">TA&#160;/&#160;Faculty</text></g>
+  <g transform="translate(1680 690)"><circle class="actor" cx="0" cy="0" r="30"/><path class="actorline" d="M0 30 V118 M-55 62 H55 M0 118 L-48 185 M0 118 L48 185"/><text class="actorname" x="0" y="230">Placement&#160;Admin</text></g>
+
+  <text class="legend" x="900" y="1060" text-anchor="middle">Amber: Placement Track   |   Blue: Academic Dropbox   |   Solid line: actor association</text>
 </svg>

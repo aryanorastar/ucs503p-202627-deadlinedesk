@@ -29,15 +29,15 @@ Expected Week 7 result: `12 passed` and zero Django system-check issues.
 
 ## Browser QA
 
-The prototype was exercised in the local browser on 25 August 2026.
+The prototype was exercised again in an isolated local browser session on 1 September 2026.
 
-- Student login, dashboard, placement details, and readiness transition
-- Student academic list and policy visibility
-- TA login, assignment list, and review queue
-- Placement Admin login, reminder log, and effective round status
-- Default desktop viewport and 390 x 844 responsive viewport
-- Visible labels, focusable native controls, skip link, navigation, and sign-out
-- Browser console checked with zero warnings or errors
+- Placement Admin created a company and round, added a required checklist item, published the round, and verified the T-24h reminder log.
+- Student completed that checklist and the UI changed from **Checklist in progress** to **Ready to apply**.
+- Student uploaded a real file to the seeded assignment and received an on-time submission record with the similarity stub result.
+- TA moved the submission to **Under review**, graded it `92/100`, and added feedback; the student immediately saw the final grade and feedback.
+- Direct role violations were checked for Student, TA/Faculty, and Placement Admin; each returned the custom `403` page.
+- The Placement Admin dashboard and Student submission record were checked at `390 x 844` with no horizontal overflow.
+- Browser console logs were checked after the workflows with zero warnings or errors.
 
 ## Policy oracle
 

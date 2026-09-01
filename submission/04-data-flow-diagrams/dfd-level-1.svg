@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1200" viewBox="0 0 1900 1200" role="img" aria-labelledby="title desc">
+  <title id="title">DeadlineDesk Level 1 data-flow diagram</title>
+  <desc id="desc">Four DeadlineDesk processes, three external roles, and four persistent data stores with routed data flows.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto"><path d="M0,0 L12,4 L0,8 Z" fill="#56637b"/></marker>
+    <style>.bg{fill:#f7f5ef}.ext{fill:#fff;stroke:#12213f;stroke-width:4}.proc{fill:#edf3ff;stroke:#2862b8;stroke-width:4}.procp{fill:#fff5da;stroke:#d88a00;stroke-width:4}.store{fill:#fff;stroke:#12213f;stroke-width:4}.title{font:700 45px Arial,sans-serif;fill:#12213f}.section{font:700 21px Arial,sans-serif;fill:#687389;letter-spacing:2px}.t{font:700 27px Arial,sans-serif;fill:#12213f;text-anchor:middle;word-spacing:4px}.p{font:700 25px Arial,sans-serif;fill:#12213f;text-anchor:middle;word-spacing:4px}.flow{stroke:#56637b;stroke-width:3.5;fill:none;marker-end:url(#arrow)}.labelbox{fill:#f7f5ef;opacity:.97}.label{font:600 20px Arial,sans-serif;fill:#30394c;text-anchor:middle;word-spacing:4px}.small{font:18px Arial,sans-serif;fill:#596276;text-anchor:middle;word-spacing:4px}</style>
+  </defs>
+  <rect class="bg" width="1900" height="1200"/>
+  <text class="title" x="950" y="60" text-anchor="middle">DeadlineDesk&#160;-&#160;Data-Flow&#160;Diagram&#160;(Level&#160;1)</text>
+  <text class="section" x="210" y="110" text-anchor="middle">EXTERNAL ENTITIES</text>
+  <text class="section" x="830" y="110" text-anchor="middle">PROCESSES</text>
+  <text class="section" x="1600" y="110" text-anchor="middle">DATA STORES</text>
+
+  <!-- External entities -->
+  <rect class="ext" x="70" y="130" width="290" height="100" rx="10"/><text class="t" x="215" y="172"><tspan x="215">All&#160;authenticated</tspan><tspan x="215" dy="31">roles</tspan></text>
+  <rect class="ext" x="70" y="315" width="290" height="105" rx="10"/><text class="t" x="215" y="378">Placement&#160;Admin</text>
+  <rect class="ext" x="70" y="570" width="290" height="105" rx="10"/><text class="t" x="215" y="633">Student</text>
+  <rect class="ext" x="70" y="825" width="290" height="105" rx="10"/><text class="t" x="215" y="888">TA&#160;/&#160;Faculty</text>
+
+  <!-- Processes -->
+  <ellipse class="proc" cx="830" cy="180" rx="225" ry="72"/><text class="p" x="830" y="172"><tspan x="830">1.0&#160;Authentication</tspan><tspan x="830" dy="30">and&#160;Roles</tspan></text>
+  <ellipse class="procp" cx="830" cy="430" rx="225" ry="72"/><text class="p" x="830" y="438">2.0&#160;Placement&#160;Track</text>
+  <ellipse class="proc" cx="830" cy="735" rx="225" ry="72"/><text class="p" x="830" y="743">3.0&#160;Academic&#160;Dropbox</text>
+  <ellipse class="procp" cx="830" cy="1030" rx="225" ry="72"/><text class="p" x="830" y="1022"><tspan x="830">4.0&#160;Reminder</tspan><tspan x="830" dy="30">and&#160;Audit</tspan></text>
+
+  <!-- Data stores -->
+  <g><rect class="store" x="1420" y="130" width="390" height="100"/><line x1="1450" y1="130" x2="1450" y2="230" stroke="#12213f" stroke-width="4"/><text class="t" x="1625" y="190">D1&#160;Users&#160;and&#160;Roles</text></g>
+  <g><rect class="store" x="1420" y="380" width="390" height="100"/><line x1="1450" y1="380" x2="1450" y2="480" stroke="#12213f" stroke-width="4"/><text class="t" x="1625" y="440">D2&#160;Placement&#160;Data</text></g>
+  <g><rect class="store" x="1420" y="685" width="390" height="100"/><line x1="1450" y1="685" x2="1450" y2="785" stroke="#12213f" stroke-width="4"/><text class="t" x="1625" y="745">D3&#160;Academic&#160;Data</text></g>
+  <g><rect class="store" x="1420" y="980" width="390" height="100"/><line x1="1450" y1="980" x2="1450" y2="1080" stroke="#12213f" stroke-width="4"/><text class="t" x="1625" y="1020"><tspan x="1625">D4&#160;Audit&#160;and</tspan><tspan x="1625" dy="28">Reminder&#160;Logs</tspan></text></g>
+
+  <!-- A single role-neutral authentication flow avoids duplicating three parallel lines. -->
+  <path class="flow" d="M360 180 H605"/>
+  <rect class="labelbox" x="405" y="137" width="160" height="34" rx="7"/><text class="label" x="485" y="161">credentials</text>
+
+  <!-- Role context routing -->
+  <path class="flow" d="M830 252 V350"/>
+  <rect class="labelbox" x="850" y="278" width="140" height="34" rx="7"/><text class="label" x="920" y="302">role&#160;context</text>
+  <path class="flow" d="M930 242 C1080 350 1080 620 930 675"/>
+  <rect class="labelbox" x="1010" y="470" width="140" height="34" rx="7"/><text class="label" x="1080" y="494">role&#160;context</text>
+
+  <!-- Placement flows: short, paired and non-crossing. -->
+  <path class="flow" d="M360 350 H605"/>
+  <rect class="labelbox" x="395" y="302" width="190" height="60" rx="7"/><text class="label" x="490" y="327"><tspan x="490">company,&#160;round,</tspan><tspan x="490" dy="24">checklist&#160;data</tspan></text>
+  <path class="flow" d="M605 405 H360"/>
+  <rect class="labelbox" x="405" y="412" width="175" height="34" rx="7"/><text class="label" x="492" y="436">publish&#160;status</text>
+  <path class="flow" d="M360 595 C455 565 505 500 620 465"/>
+  <rect class="labelbox" x="385" y="515" width="175" height="34" rx="7"/><text class="label" x="472" y="539">checklist&#160;update</text>
+  <path class="flow" d="M620 480 C520 535 470 610 360 645"/>
+  <rect class="labelbox" x="455" y="585" width="180" height="60" rx="7"/><text class="label" x="545" y="610"><tspan x="545">rounds&#160;and</tspan><tspan x="545" dy="24">readiness</tspan></text>
+
+  <!-- Academic flows -->
+  <path class="flow" d="M360 650 C470 675 520 690 615 715"/>
+  <rect class="labelbox" x="430" y="658" width="170" height="34" rx="7"/><text class="label" x="515" y="682">submission&#160;file</text>
+  <path class="flow" d="M615 760 C510 790 465 745 360 700"/>
+  <rect class="labelbox" x="410" y="750" width="205" height="60" rx="7"/><text class="label" x="512" y="775"><tspan x="512">late&#160;result,&#160;grade</tspan><tspan x="512" dy="24">and&#160;feedback</tspan></text>
+  <path class="flow" d="M360 850 H605"/>
+  <rect class="labelbox" x="395" y="802" width="200" height="60" rx="7"/><text class="label" x="495" y="827"><tspan x="495">assignment,&#160;review</tspan><tspan x="495" dy="24">and&#160;grade</tspan></text>
+  <path class="flow" d="M605 900 H360"/>
+  <rect class="labelbox" x="410" y="905" width="170" height="34" rx="7"/><text class="label" x="495" y="929">submission&#160;data</text>
+
+  <!-- Process to data-store flows -->
+  <path class="flow" d="M1055 180 H1420"/><text class="small" x="1235" y="163">user&#160;and&#160;role&#160;records</text>
+  <path class="flow" d="M1055 430 H1420"/><text class="small" x="1235" y="413">placement&#160;records</text>
+  <path class="flow" d="M1055 735 H1420"/><text class="small" x="1235" y="718">assignments&#160;and&#160;submissions</text>
+  <path class="flow" d="M1055 1030 H1420"/><text class="small" x="1235" y="1013">audit&#160;and&#160;reminder&#160;records</text>
+
+  <!-- Events feed the audit process without crossing actor flows. -->
+  <path class="flow" d="M900 500 C960 650 960 880 895 965"/><text class="small" x="1015" y="660">publish&#160;event</text>
+  <path class="flow" d="M830 807 V958"/><text class="small" x="750" y="890">workflow&#160;event</text>
+</svg>

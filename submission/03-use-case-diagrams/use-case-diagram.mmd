@@ -1,0 +1,36 @@
+flowchart LR
+    student[Student]
+    ta[TA / Faculty]
+    admin[Placement Admin]
+
+    subgraph DD[DeadlineDesk]
+        subgraph StudentCases[Student use cases]
+            rounds([View placement rounds])
+            checklist([Complete document checklist])
+            readiness([View readiness result])
+            assignments([View assignments])
+            submit([Upload submission])
+            outcome([View late decision, grade and feedback])
+        end
+        subgraph StaffCases[Staff use cases]
+            publishAssignment([Publish assignment and late policy])
+            review([Review submission])
+            grade([Grade and add feedback])
+            manageRound([Create company and round])
+            addItem([Add checklist items])
+            publishRound([Publish round and log reminder])
+        end
+    end
+
+    student --- rounds
+    student --- checklist
+    student --- readiness
+    student --- assignments
+    student --- submit
+    student --- outcome
+    ta --- publishAssignment
+    ta --- review
+    ta --- grade
+    admin --- manageRound
+    admin --- addItem
+    admin --- publishRound

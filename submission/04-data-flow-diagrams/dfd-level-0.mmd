@@ -1,0 +1,12 @@
+flowchart LR
+    S[Student]
+    DD((0. DeadlineDesk))
+    T[TA / Faculty]
+    P[Placement Admin]
+
+    S -->|credentials, checklist updates, submission file| DD
+    DD -->|readiness, late result, grade and feedback| S
+    T -->|assignment policy, review and grade| DD
+    DD -->|submission and similarity data| T
+    P -->|companies, rounds and checklist items| DD
+    DD -->|publication and reminder status| P

@@ -1,12 +1,15 @@
 \documentclass[11pt,a4paper]{article}
 \usepackage[margin=1in]{geometry}
-\usepackage{hyperref}
+\usepackage[hidelinks]{hyperref}
 \usepackage{enumitem}
 \usepackage{graphicx}
 \usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{array}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{pdflscape}
 
 \makeatletter
 \newcommand{\BvrSetLabInstructor}[1]{\gdef\Bvr@LabInstructor{#1}}
@@ -25,8 +28,8 @@
 }
 \makeatother
 
-\title{DeadlineDesk: A Campus Web System for Placement\\
-Rounds and Academic Assignment Deadlines}
+\title{DeadlineDesk: A Campus Web System for\\
+Placement Rounds and Academic Deadlines}
 
 \BvrSetLabInstructor{Mr. Jeelani Asif}
 
@@ -38,13 +41,13 @@ Rounds and Academic Assignment Deadlines}
 
 \author{
   Aryan Gupta, CSED%
-  \thanks{Roll No: \texttt{1024030764}; Email: \texttt{agupta15\_be24\@thapar.edu}}
+  \thanks{Roll No: \texttt{1024030764}; Email: \texttt{agupta15\_be24@thapar.edu}}
   \and
   Aksh Goyal, CSED%
-  \thanks{Roll No: \texttt{1024030766}; Email: \texttt{agoyal2\_be24\@thapar.edu}}
+  \thanks{Roll No: \texttt{1024030766}; Email: \texttt{agoyal2\_be24@thapar.edu}}
   \and
   Naveen Bansal, CSED%
-  \thanks{Roll No: \texttt{1024030767}; Email: \texttt{nbansal3\_be24\@thapar.edu}}
+  \thanks{Roll No: \texttt{1024030767}; Email: \texttt{nbansal3\_be24@thapar.edu}}
 }
 
 \date{18 August 2026}
@@ -61,7 +64,8 @@ inconsistently. This proposal presents \textbf{DeadlineDesk}, a role-based
 web system that combines a placement track (companies, rounds, document
 checklists, reminders) with an academic dropbox (submission, late policy,
 similarity stub, TA grading). Success is measured by on-time completion and
-correct late-policy behaviour, with a working prototype targeted for Week~7.
+correct late-policy behaviour. The scope baseline covers work completed
+through the Week~7 prototype.
 \end{abstract}
 
 \section{Introduction / Problem Statement}
@@ -95,8 +99,8 @@ integration.
 
 \textbf{Primary goal.}
 Build a campus web system that makes placement-round readiness and assignment
-submission outcomes visible, enforceable, and testable by Week~7, then refine
-design artefacts and quality for the end-semester evaluation.
+submission outcomes visible, enforceable, and testable through a demonstrable
+Week~7 prototype.
 
 \textbf{Specific objectives.}
 \begin{enumerate}[leftmargin=0.7cm,itemsep=2pt]
@@ -109,114 +113,132 @@ design artefacts and quality for the end-semester evaluation.
         with late policy $\rightarrow$ submit $\rightarrow$ automatic late
         flag $\rightarrow$ similarity stub score $\rightarrow$ TA grade.
   \item Maintain 100\% agreement between automated late flags and the stated
-        policy on a fixed black-box suite of at least five automated tests.
+        policy on six fixed black-box boundary cases, within a twelve-test
+        workflow and authorization suite.
   \item Keep the similarity check as an explicit stub (not a research NLP
         system); run CI (build and tests) and publish project documentation
         via the course MkDocs Pages pipeline.
 \end{enumerate}
 
+Figure~\ref{fig:use-case} defines the actor-to-system boundary used to keep the
+prototype focused. Students use both deadline workflows, while TA/Faculty and
+Placement Admin users manage only the records authorized for their roles.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{figures/use-case-diagram.png}
+  \caption{DeadlineDesk use-case diagram for the Week~7 scope.}
+  \label{fig:use-case}
+\end{figure}
+
 \section{Methodology}
 
 This is an engineering methodology: architecture, module development,
-integration, and validation.
+integration, and validation. Figure~\ref{fig:dfd0} shows the system context;
+Figure~\ref{fig:dfd1} decomposes the system into the implemented processes and
+persistent stores.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.96\textwidth]{figures/dfd-level-0.png}
+  \caption{Level 0 data-flow diagram: external data exchanged with DeadlineDesk.}
+  \label{fig:dfd0}
+\end{figure}
 
 \subsection{System architecture and technology stack}
-We shall use a layered web architecture:
+The prototype uses a layered Django web architecture:
 \begin{itemize}[leftmargin=0.7cm,itemsep=1pt]
   \item \textbf{Presentation:} responsive web UI for student, TA, and admin
         portals.
-  \item \textbf{Application:} API for authentication, CRUD operations, status
-        transitions, and reminder scheduling hooks.
-  \item \textbf{Domain:} shared entities (User, Role, Deadline, Document,
-        Reminder, StatusHistory) and module entities (Company, Round,
-        ChecklistItem; Assignment, Submission, Grade).
-  \item \textbf{Persistence:} relational database (PostgreSQL; SQLite
-        acceptable in the early prototype) with indexed deadline and status
-        queries.
+  \item \textbf{Application:} role-protected Django views and forms for
+        authentication, CRUD operations, workflow transitions, and grading.
+  \item \textbf{Domain:} service functions and ORM entities for users, roles,
+        placement rounds, checklists, assignments, submissions, grades,
+        reminders, and audit events.
+  \item \textbf{Persistence:} SQLite and local media for the Week~7 prototype,
+        isolated behind Django's ORM for a later managed-database migration.
 \end{itemize}
-Planned stack (final choice by team delivery speed): Django or Next.js,
-GitHub Actions for CI, MkDocs with GitHub Pages from the UCS503P template,
-and Pytest or Jest for tests. The design relies on mature components rather
-than novel algorithms.
+The implemented stack is Django, server-rendered HTML/CSS, SQLite, Pytest,
+GitHub Actions, and MkDocs with GitHub Pages. The design relies on mature
+components rather than novel algorithms.
 
 \subsection{Module development}
 \begin{enumerate}[leftmargin=0.7cm,itemsep=2pt]
-  \item \textbf{Authentication and roles.} Session or JWT authentication with
-        role claims and route guards.
+  \item \textbf{Authentication and roles.} Django session authentication with
+        stored roles and route guards.
   \item \textbf{Placement Track.} An administrator publishes a company and
         round with open/close times. Round states:
-        draft $\rightarrow$ published $\rightarrow$ open $\rightarrow$
-        closed $\rightarrow$ archived.
+        draft $\rightarrow$ published, with open and closed states derived
+        from the configured timestamps.
         Students complete required checklist items; readiness requires all
         required items to be complete.
   \item \textbf{Academic Dropbox.} A TA sets the due time and late policy
         (reject / accept-with-penalty / grace-window). Late evaluation is a
-        function of submission time, due time, and policy. Submission states:
-        draft $\rightarrow$ submitted $\rightarrow$ under-review $\rightarrow$
-        graded (with an optional late flag).
-  \item \textbf{Reminders and audit.} Persist scheduled and sent reminder
-        records; outbound email is a later increment.
+        function of submission time, due time, and policy. Accepted submissions
+        move from submitted $\rightarrow$ under-review $\rightarrow$ graded;
+        the late outcome is recorded separately.
+  \item \textbf{Reminders and audit.} Persist a T-24h reminder log and the
+        placement/academic audit events. Email delivery is outside the Week~7
+        baseline.
 \end{enumerate}
+
+\begin{landscape}
+\begin{center}
+  \centering
+  \includegraphics[width=0.84\linewidth]{figures/dfd-level-1.png}
+  \captionsetup{hypcap=false}
+  \captionof{figure}{Level 1 data-flow diagram for implemented processes and
+  persistent stores.}
+  \label{fig:dfd1}
+\end{center}
+\end{landscape}
+\clearpage
 
 \subsection{Integration, CI/CD, and validation}
 Work proceeds in weekly increments: build, test, and demonstrate thin features.
-CI runs linting and unit tests on each push; documentation deploys through the
-template Pages pipeline; a staging URL supports the Week~7 demonstration.
+CI runs migrations, Django system checks, and automated tests on each push;
+MkDocs documentation deploys through GitHub Pages. A deterministic seed command
+creates the three demo roles and representative deadline data.
 
 \textbf{Evaluation.}
 Primary metric: on-time completion rate (OTCR)---the fraction of tracked
 deadlines where the required student action occurs before cutoff, taken from
-database timestamps. Secondary metrics: reminder effectiveness; full agreement
-of the late-policy test suite; median TA turnaround time. Pilot plan: 8--15
-student users; staff roles may be simulated by the team if needed.
+database timestamps. Prototype verification also requires full agreement of
+the late-policy decision table, authorization checks, valid state transitions,
+and repeatable end-to-end demonstrations. The Week~7 suite contains twelve
+passing automated tests.
 
 \textbf{Risks and mitigations.}
 Two-module scope is controlled by a shared core and thin Week~7 paths.
-Reminder delivery on free hosting starts as a database log. The similarity
-component is labelled as a stub in the SRS. Official college email addresses
-are recorded on the team declaration sheet.
+Reminder automation is demonstrated as a database log; email delivery is
+outside the baseline. The similarity component is labelled as a stub in the
+SRS. Official college email addresses are recorded on the team declaration
+sheet.
 
 \textbf{Scalability.}
 Pagination, indexes, and clear module boundaries support growth in users and
-deadlines. Deployment targets common web hosting with a managed database and
-CI/CD.
+deadlines. Django ORM boundaries allow a managed-database migration without
+changing the two domain workflows.
 
-\section{Timeline}
+\section{Delivery Record Through Week 7}
 
 \begin{center}
 \small
-\begin{tabular}{@{}p{1.6cm}p{6.2cm}p{5.0cm}@{}}
+\begin{tabular}{@{}p{1.6cm}>{\raggedright\arraybackslash}p{6.2cm}>{\raggedright\arraybackslash}p{5.0cm}@{}}
 \toprule
 \textbf{Week} & \textbf{Task} & \textbf{Deliverable} \\
 \midrule
 W3--W4 & Problem definition, proposal, presentation, repository setup &
-  Proposal PDF, slides, Pages site \\
-W5--W6 & SRS draft, use-case and class sketches, backlog, auth scaffold &
-  SRS v0.1, CI green \\
-\textbf{W7} & Both thin end-to-end paths and automated tests &
-  \textbf{Prototype (MST)} \\
-W8 & Improvement plan from prototype feedback &
-  Improvement note \\
-W9--W10 & Mid-semester buffer; defect fixes &
-  Stable staging build \\
-W11--W12 & Sequence and state diagrams; additional tests; UI polish &
-  Design pack v1 \\
-W13 & Buffer (holiday sandwich) &
-  Catch-up \\
-W14--W15 & Second prototype polish &
-  Prototype 2 \\
-W16 & Improvements over second prototype &
-  Updated demonstration \\
-W17 & Final prototype, seminar, final report &
-  \textbf{EST delivery} \\
+  Proposal, slides, project site \\
+W5 & Architecture, authentication, policies, user flows, and SRS &
+  Documented shared core \\
+W6 & Placement Track, Academic Dropbox, grading, and responsive UI &
+  Both thin paths integrated \\
+\textbf{W7} & Automated tests, browser QA, CI, documentation, and demo seed &
+  \textbf{Verified prototype (MST)} \\
 \bottomrule
 \end{tabular}
 \end{center}
-
-\vspace{0.3em}
-\noindent\textit{Buffer:} Weeks~13 and the mid-semester period absorb
-slippage. If needed, email reminders and dashboards are deferred before core
-status machines.
 
 \section{Resources / Budget}
 
@@ -229,22 +251,17 @@ status machines.
   \item \textbf{Naveen Bansal (1024030767):} user interface flows,
         documentation site, demonstration script.
 \end{itemize}
-Role emphasis may adjust after Week~7 according to measured velocity.
 
-\textbf{Material resources.} Personal laptops; GitHub (repository, Actions,
-Pages); free-tier hosting and database for staging; \LaTeX\ for reports. No
-specialised laboratory hardware is required.
-
-\textbf{Budget.} No external funding is required. Software is free and
-open-source or available through student GitHub access. Optional printing of a
-one-page handout is incidental.
+\textbf{Material resources and budget.} Personal laptops, GitHub, SQLite, and
+\LaTeX{} cover the prototype and documentation needs. No specialised hardware
+or external funding is required.
 
 \section{Summary}
 
-DeadlineDesk is a focused software engineering project: two deadline
-workflows, clear roles, explicit status machines, continuous integration, and
-measurable on-time and policy-correctness metrics. It matches UCS503P
-selection heuristics---local relevance, available engines, deployability, and
-evaluation---and is attainable for a three-member team within the semester.
+DeadlineDesk combines two deadline workflows with clear roles, explicit status
+machines, continuous integration, and measurable policy correctness. The
+Week~7 baseline delivers both end-to-end paths, twelve passing tests,
+documentation, and a repeatable role-based demonstration. Email delivery and
+plagiarism detection remain explicitly outside this baseline.
 
 \end{document}

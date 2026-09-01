@@ -29,16 +29,21 @@ The working Django prototype now implements both proposed thin paths, three role
 - Project proposal: [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/main.pdf) · [LaTeX source](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/main.tex)
 - Week 4 presentation: [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/w4/presentation.pdf)
 - Prototype-stage report: [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-report-prototype-stage/main.pdf) · [LaTeX source](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-report-prototype-stage/main.tex)
-- Final report: `project-report-final/` (TBA)
+- Complete Week 4–7 submission package: [documents, diagrams, and journals](submission/index.md)
 
 ## Installation
 
-Application source will live under `code/` as the
-prototype develops.  The sample C++ scaffold from the
-course template remains available:
+The working Django application lives under `code/`.
+From the repository root, install the requirements,
+apply migrations, seed the demo records, and start the
+development server:
 
 ``` shell
-make -C code
+python3 -m venv .venv
+./.venv/bin/python -m pip install -r requirements.txt
+./.venv/bin/python code/manage.py migrate
+./.venv/bin/python code/manage.py seed_demo
+./.venv/bin/python code/manage.py runserver
 ```
 
 ## Documentation

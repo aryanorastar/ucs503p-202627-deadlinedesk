@@ -1,5 +1,4 @@
 * [Home](index.md)
-* [Criteria for Project Selection](criteria-for-project-selection.md)
 * [Software Requirements Specification](srs.md)
 * [Architecture and Design](design.md)
 * [Product Backlog](backlog.md)

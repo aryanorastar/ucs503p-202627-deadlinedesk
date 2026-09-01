@@ -59,6 +59,7 @@ These credentials are for local demonstration only. Production deployment must s
 |---|---|
 | `code/` | Django application, migrations, templates, CSS, tests, demo seed command |
 | `docs/` | SRS, design, testing, backlog, demo guide, course documentation |
+| `docs/submission/` | Organized Week 4–7 submission bundle: PPT/PDF, proposal, diagrams, journals, report |
 | `journals/` | Weekly technical journal for each team member |
 | `project-proposal/` | Week 4 LaTeX proposal and PDF |
 | `project-report-prototype-stage/` | Week 7 prototype report source and PDF |
@@ -74,8 +75,13 @@ These credentials are for local demonstration only. Production deployment must s
 
 ## Submission links
 
+- [Complete Week 4–7 submission bundle](docs/submission/index.md)
+- [PowerPoint presentation](docs/submission/01-presentation/DeadlineDesk_Week4_Presentation.pptx)
 - [Project proposal PDF](project-proposal/main.pdf)
 - [Week 4 presentation PDF](w4/presentation.pdf)
+- [Use-case diagram](docs/submission/03-use-case-diagrams/use-case-diagram.svg)
+- [Data-flow diagrams](docs/submission/04-data-flow-diagrams/)
+- [Individual team journals](docs/submission/05-team-journals/)
 - [Week 7 prototype report PDF](project-report-prototype-stage/main.pdf)
 - [Project page](https://aryanorastar.github.io/ucs503p-202627-deadlinedesk/)
 - [Repository](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk)

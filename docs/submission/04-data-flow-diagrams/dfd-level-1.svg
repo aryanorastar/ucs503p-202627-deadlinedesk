@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc">
+  <title id="title">DeadlineDesk Level 1 data-flow diagram</title><desc id="desc">Four DeadlineDesk processes, three external roles, and four persistent data stores.</desc>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#59657c"/></marker><style>.bg{fill:#f7f5ef}.ext{fill:#fff;stroke:#14213d;stroke-width:3}.proc{fill:#eef4ff;stroke:#275dad;stroke-width:3}.proc2{fill:#fff8e7;stroke:#d38b00;stroke-width:3}.store{fill:#fff;stroke:#14213d;stroke-width:3}.h{font:700 42px Arial,sans-serif;fill:#14213d}.t{font:700 24px Arial,sans-serif;fill:#14213d;text-anchor:middle}.p{font:700 23px Arial,sans-serif;fill:#14213d;text-anchor:middle}.edge{stroke:#59657c;stroke-width:2.5;fill:none;marker-end:url(#a)}.label{font:16px Arial,sans-serif;fill:#30394c;text-anchor:middle}.section{font:700 18px Arial,sans-serif;fill:#747c8c;letter-spacing:2px}</style></defs>
+  <rect class="bg" width="1800" height="1200"/><text class="h" x="900" y="58" text-anchor="middle">DeadlineDesk — Data-Flow Diagram (Level 1)</text>
+  <text class="section" x="150" y="108">EXTERNAL ENTITIES</text><text class="section" x="900" y="108" text-anchor="middle">PROCESSES</text><text class="section" x="1620" y="108" text-anchor="middle">DATA STORES</text>
+  <rect class="ext" x="55" y="170" width="280" height="100" rx="9"/><text class="t" x="195" y="230">Student</text>
+  <rect class="ext" x="55" y="490" width="280" height="100" rx="9"/><text class="t" x="195" y="550">TA / Faculty</text>
+  <rect class="ext" x="55" y="810" width="280" height="100" rx="9"/><text class="t" x="195" y="870">Placement Admin</text>
+
+  <ellipse class="proc" cx="780" cy="210" rx="235" ry="85"/><text class="p" x="780" y="202"><tspan x="780">1.0 Authentication</tspan><tspan x="780" dy="30">and Roles</tspan></text>
+  <ellipse class="proc2" cx="780" cy="465" rx="235" ry="85"/><text class="p" x="780" y="457"><tspan x="780">2.0 Placement</tspan><tspan x="780" dy="30">Track</tspan></text>
+  <ellipse class="proc" cx="780" cy="720" rx="235" ry="85"/><text class="p" x="780" y="712"><tspan x="780">3.0 Academic</tspan><tspan x="780" dy="30">Dropbox</tspan></text>
+  <ellipse class="proc2" cx="780" cy="975" rx="235" ry="85"/><text class="p" x="780" y="967"><tspan x="780">4.0 Reminder</tspan><tspan x="780" dy="30">and Audit</tspan></text>
+
+  <g><rect class="store" x="1375" y="155" width="360" height="110"/><line x1="1400" y1="155" x2="1400" y2="265" stroke="#14213d" stroke-width="3"/><text class="t" x="1565" y="218">D1 Users and Roles</text></g>
+  <g><rect class="store" x="1375" y="410" width="360" height="110"/><line x1="1400" y1="410" x2="1400" y2="520" stroke="#14213d" stroke-width="3"/><text class="t" x="1565" y="473">D2 Placement Data</text></g>
+  <g><rect class="store" x="1375" y="665" width="360" height="110"/><line x1="1400" y1="665" x2="1400" y2="775" stroke="#14213d" stroke-width="3"/><text class="t" x="1565" y="728">D3 Academic Data</text></g>
+  <g><rect class="store" x="1375" y="920" width="360" height="110"/><line x1="1400" y1="920" x2="1400" y2="1030" stroke="#14213d" stroke-width="3"/><text class="t" x="1565" y="970"><tspan x="1565">D4 Audit and</tspan><tspan x="1565" dy="27">Reminder Logs</tspan></text></g>
+
+  <path class="edge" d="M335 205 L545 205"/><text class="label" x="440" y="190">credentials</text>
+  <path class="edge" d="M335 520 C420 435 460 300 550 240"/><text class="label" x="420" y="370">credentials</text>
+  <path class="edge" d="M335 840 C420 700 455 335 555 250"/><text class="label" x="420" y="655">credentials</text>
+  <path class="edge" d="M1015 210 L1375 210"/><text class="label" x="1195" y="193">user and role lookup</text>
+  <path class="edge" d="M750 295 L750 380"/><text class="label" x="665" y="342">role context</text>
+  <path class="edge" d="M820 295 C900 410 900 575 820 635"/><text class="label" x="930" y="470">role context</text>
+
+  <path class="edge" d="M335 245 C440 270 465 380 555 420"/><text class="label" x="450" y="318">checklist updates</text>
+  <path class="edge" d="M555 500 C455 535 415 420 330 320"/><text class="label" x="435" y="482">rounds and readiness</text>
+  <path class="edge" d="M335 855 C430 780 475 570 560 500"/><text class="label" x="430" y="685"><tspan x="430">companies, rounds,</tspan><tspan x="430" dy="20">requirements</tspan></text>
+  <path class="edge" d="M1015 465 L1375 465"/><text class="label" x="1195" y="448">placement records</text>
+
+  <path class="edge" d="M335 255 C425 380 470 640 555 690"/><text class="label" x="430" y="575">submission file</text>
+  <path class="edge" d="M555 760 C445 790 415 650 330 600"/><text class="label" x="430" y="750"><tspan x="430">late decision,</tspan><tspan x="430" dy="20">grade and feedback</tspan></text>
+  <path class="edge" d="M335 550 C430 565 475 650 555 680"/><text class="label" x="450" y="620">policy, review, grade</text>
+  <path class="edge" d="M1015 720 L1375 720"/><text class="label" x="1195" y="703">assignments and submissions</text>
+
+  <path class="edge" d="M800 550 C875 685 880 820 810 890"/><text class="label" x="900" y="735">publish events</text>
+  <path class="edge" d="M760 805 L760 890"/><text class="label" x="670" y="855">workflow events</text>
+  <path class="edge" d="M1015 975 L1375 975"/><text class="label" x="1195" y="958">audit and reminder records</text>
+  <path class="edge" d="M555 1000 C440 1035 400 940 330 900"/><text class="label" x="440" y="1015">T-24h reminder status</text>
+</svg>

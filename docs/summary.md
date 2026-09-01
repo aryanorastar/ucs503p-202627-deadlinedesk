@@ -5,6 +5,7 @@
 * [Product Backlog](backlog.md)
 * [Test Strategy and Evidence](testing.md)
 * [Week 7 Demo Guide](demo.md)
+* [Submission Documents](submission/index.md)
 * Journals
     * [1024030764 aryan](journals/1024030764-aryan/index.md)
         * [Week 4 proposal](journals/1024030764-aryan/w4-project-proposal.md)

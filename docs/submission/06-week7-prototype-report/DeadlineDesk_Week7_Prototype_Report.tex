@@ -1,0 +1,111 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+\title{DeadlineDesk: Week 7 Prototype Stage Report}
+\author{Aryan Gupta (1024030764) \and Aksh Goyal (1024030766) \and Naveen Bansal (1024030767)}
+\date{25 August 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+DeadlineDesk is a role-based campus web system for placement rounds and academic assignment deadlines. The Week 7 prototype delivers the two thin end-to-end paths promised in the proposal. A Placement Admin can publish a company round with a required checklist and T-24h reminder log; a Student can complete the checklist and receive a readiness result. A TA can publish an assignment with a late policy; a Student can upload work and receive an automatic late outcome and similarity-stub score; the TA can review and grade the submission. The implementation uses Django and SQLite, includes 12 automated tests, and is accompanied by SRS, design, testing, backlog, demo, CI, and weekly journal evidence.
+\end{abstract}
+
+\section{Prototype Objectives and Status}
+
+\begin{tabularx}{\textwidth}{@{}p{0.8cm}X p{2.2cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Objective} & \textbf{Status} \\
+\midrule
+O1 & Role-based authentication for Student, TA / Faculty, and Placement Admin & Complete \\
+O2 & Company/round to checklist to T-24h reminder log & Complete \\
+O3 & Assignment policy to submission to late flag to similarity stub to grade & Complete \\
+O4 & At least five fixed black-box late-policy tests with 100\% agreement & Complete: 6/6 \\
+O5 & CI and published technical documentation & Complete \\
+\bottomrule
+\end{tabularx}
+
+\section{Architecture and Technology}
+
+The prototype is a layered Django monolith. Server-rendered templates and forms call role-protected views; views orchestrate domain services and Django ORM models; SQLite and local media provide prototype persistence. The late-policy evaluator and similarity stub are isolated in the service layer so policy tests do not depend on page rendering.
+
+\begin{itemize}[leftmargin=0.7cm]
+  \item \textbf{Presentation:} responsive HTML/CSS, form labels, messages, empty/error states, light/dark tokens.
+  \item \textbf{Application:} login sessions, role decorator, form validation, database transactions, audit events.
+  \item \textbf{Domain:} User, Company, PlacementRound, ChecklistItem, ReminderLog, Assignment, Submission, Grade, AuditLog.
+  \item \textbf{Persistence:} Django ORM, SQLite database, local uploaded files, migrations.
+  \item \textbf{Quality:} Pytest, pytest-django, Django system checks, GitHub Actions.
+\end{itemize}
+
+\section{Implemented Workflows}
+
+\subsection{Placement Track}
+
+The Placement Admin creates a Company and a draft PlacementRound with open/close times, then adds ordered required or optional checklist items. Publishing requires at least one required item and atomically creates a reminder record scheduled for closing time minus 24 hours. Students cannot view drafts. For a published round, effective state is calculated as published, open, or closed from the server time. Checklist completion is unique per student and item; readiness is true only when every required item is complete.
+
+\subsection{Academic Dropbox}
+
+The TA publishes an Assignment with due time and one policy: reject late work, accept with a configured penalty, or accept within a grace window. The Student uploads one file (maximum 5 MB). Server time is authoritative. Accepted work stores late outcome and penalty; rejected work creates no Submission. UTF-8 text files receive a maximum Jaccard token-overlap score against earlier submissions. This value is explicitly labeled a stub, not a plagiarism verdict. A TA can move a submission under review and publish a validated score, maximum, and feedback.
+
+\section{Policy Rules and Validation}
+
+\begin{tabularx}{\textwidth}{@{}X X X@{}}
+\toprule
+\textbf{Condition} & \textbf{Decision} & \textbf{Database effect} \\
+\midrule
+Submission time at or before due time & On time; 0\% penalty & Create Submission \\
+Reject policy after due time & Rejected & No Submission \\
+Penalty policy after due time & Late; configured penalty & Create Submission \\
+Grace policy within boundary & Accepted in grace & Create Submission \\
+Grace policy after boundary & Rejected & No Submission \\
+Unknown policy & Fail closed with error & No Submission \\
+\bottomrule
+\end{tabularx}
+
+Forms also validate opening/closing order, policy-specific fields, file type/size, and score not exceeding maximum. Database unique constraints prevent duplicate checklist completion and multiple submissions for the same student/assignment.
+
+\section{Test and CI Evidence}
+
+The fixed automated suite contains 12 tests. Six verify late-policy boundaries: exact deadline, one-second late rejection, configured penalty, grace-boundary acceptance, after-grace rejection, and unknown-policy failure. Six integration tests verify role denial, T-24h reminder creation, checklist toggling, the full late-penalty upload-to-grade path, absence of a Submission after rejection, and private student-file download authorization.
+
+On 25 August 2026 the local result was \texttt{12 passed}, with zero Django system-check issues. GitHub Actions installs pinned requirements, checks the model migration state, applies migrations, and runs the same suite on Python 3.12. The MkDocs workflow separately deploys the project documentation.
+
+\section{Browser Validation}
+
+All three seeded roles were tested through the rendered application. The Student path reached ``Ready to apply'' after completing three required documents. Student academic lists and policy messages, the TA assignment/review portal, and the Placement Admin reminder log were inspected. Responsive QA covered the default desktop viewport and 390 by 844 pixels. No browser console warnings or errors remained after correcting the time-of-day greeting and effective round-status label.
+
+\section{Risks, Limitations, and Improvement Plan}
+
+\begin{tabularx}{\textwidth}{@{}p{3.4cm}X@{}}
+\toprule
+\textbf{Limitation} & \textbf{Next action} \\
+\midrule
+TA authorization is global & Add course/section ownership before pilot deployment. \\
+SQLite/local media & Deploy staging with PostgreSQL and managed file storage. \\
+Reminder is a log only & Add a retry-safe background email worker. \\
+Similarity is a text stub & Keep the label; evaluate whether an approved service is needed later. \\
+One submission only & Define resubmission policy and immutable version history. \\
+No malware scanning & Add content scanning before accepting real student files. \\
+\bottomrule
+\end{tabularx}
+
+The Week 8 improvement priority is authorization hardening and staging deployment, not additional dashboard features. This preserves the project's time-to-value discipline.
+
+\section{Team Contribution}
+
+\begin{itemize}[leftmargin=0.7cm]
+  \item \textbf{Aryan Gupta:} architecture, role core, Placement Track, CI/CD, integration.
+  \item \textbf{Aksh Goyal:} Academic Dropbox, policy rules, grading, black-box tests.
+  \item \textbf{Naveen Bansal:} role flows, responsive UI, documentation, browser QA, demo script.
+\end{itemize}
+
+\section{Conclusion}
+
+DeadlineDesk meets the Week 7 prototype objectives with two demonstrable workflows, explicit scope boundaries, repeatable seed data, automated policy evidence, and continuous integration. The implementation remains intentionally small enough to explain and test while providing a credible base for Week 8 security and deployment improvements.
+
+\end{document}

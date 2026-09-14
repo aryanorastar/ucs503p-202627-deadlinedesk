@@ -11,6 +11,26 @@
   </header>
 
   {% if user.role == 'student' %}
+    <section class="status-overview" aria-label="Student workflow summary">
+      <div><span>Placement</span><strong>{{ open_rounds|length }} open</strong><small>rounds requiring attention</small></div>
+      <div><span>Academics</span><strong>{{ assignments|length }} upcoming</strong><small>deadlines in your queue</small></div>
+      <div><span>Activity</span><strong>{{ recent_submissions|length }} recent</strong><small>submission records available</small></div>
+    </section>
+  {% elif user.role == 'ta' %}
+    <section class="status-overview" aria-label="Teaching assistant workflow summary">
+      <div><span>Assignments</span><strong>{{ assignments|length }} published</strong><small>active academic dropboxes</small></div>
+      <div><span>Review queue</span><strong>{{ pending_submissions|length }} waiting</strong><small>submissions needing action</small></div>
+      <div><span>Audit trail</span><strong>{{ recent_activity|length }} events</strong><small>recent workflow activity</small></div>
+    </section>
+  {% else %}
+    <section class="status-overview" aria-label="Placement administrator workflow summary">
+      <div><span>Rounds</span><strong>{{ rounds|length }} tracked</strong><small>draft, open, or closed</small></div>
+      <div><span>Reminders</span><strong>{{ scheduled_reminders|length }} scheduled</strong><small>database delivery records</small></div>
+      <div><span>Audit trail</span><strong>{{ recent_activity|length }} events</strong><small>recent placement activity</small></div>
+    </section>
+  {% endif %}
+
+  {% if user.role == 'student' %}
     <section class="section-block">
       <div class="section-heading"><div><h2>Open placement rounds</h2><p>Complete every required item before the window closes.</p></div><a href="{% url 'placement_list' %}">View all</a></div>
       <div class="record-grid record-grid-featured">

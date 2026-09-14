@@ -5,7 +5,9 @@
 * [Test Strategy and Evidence](testing.md)
 * [Week 7 Demo Guide](demo.md)
 * [Submission Documents](submission/index.md)
+* [Repository structure](repository-structure.md)
 * Journals
+    * [Team journal overview](journals/README.md)
     * [1024030764 aryan](journals/1024030764-aryan/index.md)
         * [Week 4 proposal](journals/1024030764-aryan/w4-project-proposal.md)
         * [Week 5 architecture and auth](journals/1024030764-aryan/w5-architecture-auth.md)

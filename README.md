@@ -65,6 +65,8 @@ These credentials are for local demonstration only. Production deployment must s
 | `project-report-prototype-stage/` | Week 7 prototype report source and PDF |
 | `w4/` | Week 4 presentation PDF and one-page handout |
 
+See [`docs/repository-structure.md`](docs/repository-structure.md) for the canonical-versus-submission folder map.
+
 ## Team
 
 | Name | Roll No. | Primary responsibility |
@@ -81,7 +83,7 @@ These credentials are for local demonstration only. Production deployment must s
 - [Week 4 presentation PDF](w4/presentation.pdf)
 - [Use-case diagram](docs/submission/03-use-case-diagrams/use-case-diagram.svg)
 - [Data-flow diagrams](docs/submission/04-data-flow-diagrams/)
-- [Individual team journals](docs/submission/05-team-journals/)
+- [Individual team journals](journals/README.md) · [submission copy](docs/submission/05-team-journals/)
 - [Week 7 prototype report PDF](project-report-prototype-stage/main.pdf)
 - [Project page](https://aryanorastar.github.io/ucs503p-202627-deadlinedesk/)
 - [Repository](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk)

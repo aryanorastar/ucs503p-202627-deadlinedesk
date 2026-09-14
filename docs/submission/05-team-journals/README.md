@@ -1,6 +1,6 @@
 # Team Journals — Week 4 to Week 7
 
-Each member has an individual folder containing an index and one journal entry per week.
+Each member has an individual folder containing an index, a consolidated `journal.md`, and one detailed journal entry per week. The editable canonical journals are also available in the root [`journals/`](../../journals/README.md) folder.
 
 | Member | Roll number | Journal focus |
 |---|---:|---|

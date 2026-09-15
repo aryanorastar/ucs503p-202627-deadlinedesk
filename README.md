@@ -81,7 +81,7 @@ See [`docs/repository-structure.md`](docs/repository-structure.md) for the canon
 - [PowerPoint presentation](docs/submission/01-presentation/DeadlineDesk_Week4_Presentation.pptx)
 - [Project proposal PDF](project-proposal/main.pdf)
 - [Week 4 presentation PDF](w4/presentation.pdf)
-- [Use-case diagram](docs/submission/03-use-case-diagrams/use-case-diagram.svg)
+- [Use-case diagram](docs/submission/03-use-case-diagrams/use-case-diagram.pdf)
 - [Data-flow diagrams](docs/submission/04-data-flow-diagrams/)
 - [Individual team journals](journals/README.md) · [submission copy](docs/submission/05-team-journals/)
 - [Week 7 prototype report PDF](project-report-prototype-stage/main.pdf)

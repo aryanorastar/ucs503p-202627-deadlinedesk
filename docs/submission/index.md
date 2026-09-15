@@ -8,8 +8,8 @@ This folder is the Week 7 evaluation index for DeadlineDesk. Canonical artifacts
 |---:|---|---|
 | 1 | [`01-presentation`](01-presentation/README.md) | Week 4 presentation (PowerPoint; PDF in `w4/`) |
 | 2 | [`02-project-proposal`](02-project-proposal/README.md) | Project proposal (canonical PDF and LaTeX source) |
-| 3 | [`03-use-case-diagrams`](03-use-case-diagrams/README.md) | Use-case diagram in SVG, PNG, and Mermaid formats |
-| 4 | [`04-data-flow-diagrams`](04-data-flow-diagrams/README.md) | Level 0 and Level 1 DFDs in SVG, PNG, and Mermaid formats |
+| 3 | [`03-use-case-diagrams`](03-use-case-diagrams/README.md) | Supplied use-case diagram in PDF and PNG formats |
+| 4 | [`04-data-flow-diagrams`](04-data-flow-diagrams/README.md) | Supplied Level 0 and Level 1 DFDs in PDF and PNG formats |
 | 5 | [`05-team-journals`](05-team-journals/README.md) | Individual Week 4–7 journals in the canonical `journals/` folder |
 | 6 | [`06-week7-prototype-report`](06-week7-prototype-report/README.md) | Week 7 prototype report (canonical PDF and LaTeX source) |
 

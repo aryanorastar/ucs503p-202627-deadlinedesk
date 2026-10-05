@@ -18,6 +18,10 @@ The diagram is maintained once in `project-proposal/figures/`. The entries in th
 - Ovals are coloured by the actor that owns the use case: blue for Student, green for TA / Faculty, amber for Placement Admin.
 - Plain lines are actor–use-case associations. There are no `include` or `extend` dependencies in the Week 7 scope.
 
+## Preview
+
+![DeadlineDesk use-case diagram](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/use-case-diagram.png)
+
 ## Regenerating
 
 The `.drawio` file is the source of truth; the PDF and PNG are rendered from it.

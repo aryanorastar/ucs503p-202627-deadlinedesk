@@ -5,3 +5,7 @@
 - Its figures are maintained once in `project-proposal/figures/`.
 
 The files describe the DeadlineDesk problem, implemented architecture, use-case, data-flow, activity, Gantt and ER diagrams, evaluation approach, and verified Week 7 delivery record. The Gantt, activity and ER figures are also available as editable Draw.io files from the [diagram index](../07-planning-and-model-diagrams/README.md).
+
+Click the PDF link to read the complete proposal in GitHub's browser viewer, or preview its first page here:
+
+![Project proposal cover](project-proposal-cover.png)

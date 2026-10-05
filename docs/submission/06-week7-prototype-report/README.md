@@ -4,3 +4,7 @@
 - The editable source is [`project-report-prototype-stage/main.tex`](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-report-prototype-stage/main.tex).
 
 This report records the implemented thin paths, verification evidence, architecture, current limitations, and next increment.
+
+Click the PDF link to read the complete report in GitHub's browser viewer, or preview its cover here:
+
+![Week 7 prototype report cover](prototype-report-cover.png)

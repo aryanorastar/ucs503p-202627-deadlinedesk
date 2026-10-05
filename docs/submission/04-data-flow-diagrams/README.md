@@ -21,6 +21,16 @@ Both diagrams are maintained once in `project-proposal/figures/`. The entries in
 - Arrows describe data movement, not interface navigation or execution order.
 - Level 1 reads left to right: external entity, then process, then data store. Process-to-process events run vertically down the centre column.
 
+## Previews
+
+### Level 0 — system context
+
+![DeadlineDesk Level 0 data-flow diagram](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/dfd-level-0.png)
+
+### Level 1 — implemented processes and data stores
+
+![DeadlineDesk Level 1 data-flow diagram](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/dfd-level-1.png)
+
 ## Regenerating
 
 The `.drawio` files are the source of truth; the PDF and PNG exports are rendered from them.

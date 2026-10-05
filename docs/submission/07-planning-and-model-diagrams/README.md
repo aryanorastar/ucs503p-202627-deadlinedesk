@@ -10,3 +10,21 @@ The diagram sources are editable in [diagrams.net / Draw.io](https://app.diagram
 | Django entity-relationship (ER) model | [er-diagram.drawio](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/er-diagram.drawio) | [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/er-diagram.pdf) | [PNG](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/er-diagram.png) |
 
 The ER model reflects the implemented Week 7 Django models. The activity diagrams describe the placement readiness and academic submission/grading paths. The Gantt chart is a week-level reconstruction from the proposal, backlog, and journals; it does not claim day-level estimates.
+
+## Inline previews
+
+### Project schedule
+
+![DeadlineDesk Gantt chart](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/gantt-chart.png)
+
+### Placement Track activity
+
+![Placement Track activity diagram](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/activity-placement.png)
+
+### Academic Dropbox activity
+
+![Academic Dropbox activity diagram](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/activity-academic.png)
+
+### Django entity-relationship model
+
+![DeadlineDesk entity-relationship diagram](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/er-diagram.png)

@@ -78,7 +78,8 @@ See [`docs/repository-structure.md`](docs/repository-structure.md) for the canon
 ## Submission links
 
 - [Complete Week 4–7 submission bundle](docs/submission/index.md)
-- [Week 7 PowerPoint presentation](docs/submission/01-presentation/DeadlineDesk_Week7_Presentation.pptx)
+- [Week 7 presentation preview (PDF and all 13 inline slides)](docs/submission/01-presentation/README.md)
+- [Editable Week 7 PowerPoint](docs/submission/01-presentation/DeadlineDesk_Week7_Presentation.pptx)
 - [Project proposal PDF](project-proposal/main.pdf)
 - [Week 4 presentation PDF](w4/presentation.pdf)
 - [Use-case diagram PDF](project-proposal/figures/use-case-diagram.pdf)

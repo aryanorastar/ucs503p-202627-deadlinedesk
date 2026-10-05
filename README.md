@@ -59,9 +59,9 @@ These credentials are for local demonstration only. Production deployment must s
 |---|---|
 | `code/` | Django application, migrations, templates, CSS, tests, demo seed command |
 | `docs/` | SRS, design, testing, backlog, demo guide, course documentation |
-| `docs/submission/` | Organized Week 4–7 submission bundle: PPT/PDF, proposal, diagrams, journals, report |
+| `docs/submission/` | Organized Week 4–7 submission index for the PPT, proposal, diagrams, journals, and report |
 | `journals/` | Weekly technical journal for each team member |
-| `project-proposal/` | Week 4 LaTeX proposal and PDF |
+| `project-proposal/` | Updated proposal source, diagrams and PDF (scope through Week 7) |
 | `project-report-prototype-stage/` | Week 7 prototype report source and PDF |
 | `w4/` | Week 4 presentation PDF and one-page handout |
 
@@ -78,12 +78,13 @@ See [`docs/repository-structure.md`](docs/repository-structure.md) for the canon
 ## Submission links
 
 - [Complete Week 4–7 submission bundle](docs/submission/index.md)
-- [PowerPoint presentation](docs/submission/01-presentation/DeadlineDesk_Week4_Presentation.pptx)
+- [Week 7 PowerPoint presentation](docs/submission/01-presentation/DeadlineDesk_Week7_Presentation.pptx)
 - [Project proposal PDF](project-proposal/main.pdf)
 - [Week 4 presentation PDF](w4/presentation.pdf)
 - [Use-case diagram PDF](project-proposal/figures/use-case-diagram.pdf)
 - [DFD Level 0 PDF](project-proposal/figures/dfd-level-0.pdf)
 - [DFD Level 1 PDF](project-proposal/figures/dfd-level-1.pdf)
+- [Gantt, activity and ER diagrams (editable Draw.io sources and previews)](docs/submission/07-planning-and-model-diagrams/README.md)
 - [Individual team journals](journals/README.md) · [submission copy](docs/submission/05-team-journals/)
 - [Week 7 prototype report PDF](project-report-prototype-stage/main.pdf)
 - [Project page](https://aryanorastar.github.io/ucs503p-202627-deadlinedesk/)

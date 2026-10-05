@@ -126,7 +126,7 @@ Placement Admin users manage only the records authorized for their roles.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=\textwidth]{figures/use-case-diagram.png}
+  \includegraphics[width=\textwidth]{figures/use-case-diagram.pdf}
   \caption{DeadlineDesk use-case diagram for the Week~7 scope.}
   \label{fig:use-case}
 \end{figure}
@@ -140,7 +140,7 @@ persistent stores.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.54\textwidth]{figures/dfd-level-0.png}
+  \includegraphics[width=\textwidth]{figures/dfd-level-0.pdf}
   \caption{Level 0 data-flow diagram: external data exchanged with DeadlineDesk.}
   \label{fig:dfd0}
 \end{figure}
@@ -162,6 +162,20 @@ The implemented stack is Django, server-rendered HTML/CSS, SQLite, Pytest,
 GitHub Actions, and MkDocs with GitHub Pages. The design relies on mature
 components rather than novel algorithms.
 
+The Week~7 data model is summarized in Figure~\ref{fig:erd}. It shows the
+placement and academic records, their user ownership, and the uniqueness rules
+used to prevent duplicate student checklist completions and submissions.
+
+\clearpage
+\begin{landscape}
+\begin{center}
+  \includegraphics[width=0.98\linewidth,height=0.9\textheight,keepaspectratio]{figures/er-diagram.pdf}
+  \captionof{figure}{DeadlineDesk entity-relationship diagram based on the implemented Django models.}
+  \label{fig:erd}
+\end{center}
+\end{landscape}
+\clearpage
+
 \subsection{Module development}
 \begin{enumerate}[leftmargin=0.7cm,itemsep=2pt]
   \item \textbf{Authentication and roles.} Django session authentication with
@@ -182,9 +196,32 @@ components rather than novel algorithms.
         baseline.
 \end{enumerate}
 
+Figures~\ref{fig:activity-placement} and~\ref{fig:activity-academic} show the
+two implemented end-to-end activity flows, including the readiness decision
+and the submission acceptance branch.
+
+\clearpage
+\begin{landscape}
+\begin{center}
+  \includegraphics[width=0.98\linewidth,height=0.9\textheight,keepaspectratio]{figures/activity-placement.pdf}
+  \captionof{figure}{Placement Track activity: publish a round, complete its checklist, and evaluate readiness.}
+  \label{fig:activity-placement}
+\end{center}
+\end{landscape}
+\clearpage
+
+\begin{landscape}
+\begin{center}
+  \includegraphics[width=0.98\linewidth,height=0.9\textheight,keepaspectratio]{figures/activity-academic.pdf}
+  \captionof{figure}{Academic Dropbox activity: apply the late policy, then review and grade accepted work.}
+  \label{fig:activity-academic}
+\end{center}
+\end{landscape}
+\clearpage
+
 \begin{figure}[H]
   \centering
-  \includegraphics[width=0.54\textwidth]{figures/dfd-level-1.png}
+  \includegraphics[width=\textwidth]{figures/dfd-level-1.pdf}
   \caption{Level 1 data-flow diagram for implemented processes and persistent
   stores.}
   \label{fig:dfd1}
@@ -235,6 +272,20 @@ W6 & Placement Track, Academic Dropbox, grading, and responsive UI &
 \bottomrule
 \end{tabular}
 \end{center}
+
+Figure~\ref{fig:gantt} provides a week-level view of the documented work
+through the Week~7 prototype. The schedule records milestones by week and does
+not claim day-level estimates.
+
+\clearpage
+\begin{landscape}
+\begin{center}
+  \includegraphics[width=0.98\linewidth,height=0.9\textheight,keepaspectratio]{figures/gantt-chart.pdf}
+  \captionof{figure}{DeadlineDesk project Gantt chart from Week~3 through Week~7.}
+  \label{fig:gantt}
+\end{center}
+\end{landscape}
+\clearpage
 
 \section{Resources / Budget}
 

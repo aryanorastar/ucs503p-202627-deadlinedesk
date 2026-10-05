@@ -2,8 +2,26 @@
 
 The diagram captures the Week 7 DeadlineDesk scope for the three supported roles: Student, TA / Faculty, and Placement Admin.
 
-- [`use-case-diagram.pdf`](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/use-case-diagram.pdf) is the supplied submission-ready diagram.
-- `use-case-diagram.png` is the raster export used by the proposal.
-- The canonical files are maintained once in `project-proposal/figures/`.
+## Canonical files
 
-Placement use cases are amber; academic-dropbox use cases are blue. Dashed lines show dependencies between use cases rather than actor associations.
+The diagram is maintained once in `project-proposal/figures/`. The entries in this folder are symlinks to those files, so there is a single source of truth and nothing is duplicated.
+
+| Entry | Canonical path | Purpose |
+|---|---|---|
+| `use-case-diagram.drawio` | `project-proposal/figures/use-case-diagram.drawio` | Editable draw.io source |
+| `use-case-diagram.pdf` | `project-proposal/figures/use-case-diagram.pdf` | Vector export embedded in the proposal |
+| `use-case-diagram.png` | `project-proposal/figures/use-case-diagram.png` | Raster export for this documentation site |
+
+## Reading the diagram
+
+- The rectangle is the DeadlineDesk system boundary; the three stick figures are the actors outside it.
+- Ovals are coloured by the actor that owns the use case: blue for Student, green for TA / Faculty, amber for Placement Admin.
+- Plain lines are actor–use-case associations. There are no `include` or `extend` dependencies in the Week 7 scope.
+
+## Regenerating
+
+The `.drawio` file is the source of truth; the PDF and PNG are rendered from it.
+
+```bash
+python3 project-proposal/scripts/render_diagrams.py
+```

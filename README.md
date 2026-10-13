@@ -85,7 +85,7 @@ See [`docs/repository-structure.md`](docs/repository-structure.md) for the canon
 - [Use-case diagram PDF](project-proposal/figures/use-case-diagram.pdf)
 - [DFD Level 0 PDF](project-proposal/figures/dfd-level-0.pdf)
 - [DFD Level 1 PDF](project-proposal/figures/dfd-level-1.pdf)
-- [Gantt, activity and ER diagrams (editable Draw.io sources and previews)](docs/submission/07-planning-and-model-diagrams/README.md)
+- [Gantt, activity, ER, class and sequence diagrams (editable Draw.io sources and previews)](docs/submission/07-planning-and-model-diagrams/README.md)
 - [Individual team journals](journals/README.md) · [submission copy](docs/submission/05-team-journals/)
 - [Week 7 prototype report PDF](project-report-prototype-stage/main.pdf)
 - [Project page](https://aryanorastar.github.io/ucs503p-202627-deadlinedesk/)

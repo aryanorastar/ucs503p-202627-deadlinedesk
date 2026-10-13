@@ -12,7 +12,7 @@ This folder is the Week 7 evaluation index for DeadlineDesk. Canonical artifacts
 | 4 | [`04-data-flow-diagrams`](04-data-flow-diagrams/README.md) | Editable draw.io sources, PDFs, and inline PNG previews for both levels |
 | 5 | [`05-team-journals`](05-team-journals/README.md) | Individual Week 4–7 journals in the canonical `journals/` folder |
 | 6 | [`06-week7-prototype-report`](06-week7-prototype-report/README.md) | Browser-viewable Week 7 prototype report PDF, LaTeX source, and cover preview |
-| 7 | [`07-planning-and-model-diagrams`](07-planning-and-model-diagrams/README.md) | Editable Draw.io Gantt, activity and ER diagrams with inline PNG previews and PDFs |
+| 7 | [`07-planning-and-model-diagrams`](07-planning-and-model-diagrams/README.md) | Editable Draw.io Gantt, activity, ER, class and sequence diagrams with inline PNG previews and PDFs |
 
 ## Scope represented
 

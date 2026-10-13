@@ -89,7 +89,7 @@ Editable draw.io sources and their PDF/PNG exports live in `project-proposal/fig
 
 - [Use-case diagram](submission/03-use-case-diagrams/README.md)
 - [Data-flow diagrams, Levels 0 and 1](submission/04-data-flow-diagrams/README.md)
-- [Gantt chart, activity diagrams and ER model](submission/07-planning-and-model-diagrams/README.md)
+- [Gantt chart, activity diagrams, ER model, class diagram and sequence diagrams](submission/07-planning-and-model-diagrams/README.md)
 
 `make diagrams` re-exports every PDF and PNG from the `.drawio` sources. See [Repository structure](repository-structure.md#diagram-sources-and-exports) for the full workflow.
 

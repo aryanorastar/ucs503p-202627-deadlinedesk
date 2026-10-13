@@ -25,7 +25,7 @@ The `docs/submission/` folder is intentionally a packaged copy for evaluation do
 | Data-flow diagrams | `project-proposal/figures/` | `docs/submission/04-data-flow-diagrams/` (symlinks to canonical files) |
 | Team journals | `journals/` | `docs/submission/05-team-journals/` |
 | Week 7 prototype report | `project-report-prototype-stage/` | `docs/submission/06-week7-prototype-report/` |
-| Gantt, activity and ER diagrams | `project-proposal/figures/` | `docs/submission/07-planning-and-model-diagrams/` (links to canonical files) |
+| Gantt, activity, ER, class and sequence diagrams | `project-proposal/figures/` | `docs/submission/07-planning-and-model-diagrams/` (links to canonical files) |
 
 ## Diagram sources and exports
 

@@ -16,16 +16,19 @@ The diagram is maintained once in `project-proposal/figures/`. The entries in th
 
 - The rectangle is the DeadlineDesk system boundary; the three stick figures are the actors outside it.
 - Ovals are coloured by the actor that owns the use case: blue for Student, green for TA / Faculty, amber for Placement Admin.
-- Plain lines are actor–use-case associations. There are no `include` or `extend` dependencies in the Week 7 scope.
+- Plain lines are actor–use-case associations.
+- Grey ovals are system behaviour that always runs as part of another use case, shown with `«include»`: every upload is evaluated against the late policy (`assignment_submit` calls `evaluate_lateness`), and every publish stores the T-24h reminder log row (`round_publish`). There are no `extend` relationships.
 
 ## Preview
 
 ![DeadlineDesk use-case diagram](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/use-case-diagram.png)
 
-## Regenerating
+## Editing and exporting
 
-The `.drawio` file is the source of truth; the PDF and PNG are rendered from it.
+The `.drawio` file is the only source. Edit it in draw.io, then export the PDF and PNG from it with draw.io Desktop's command-line tool:
 
 ```bash
-python3 project-proposal/scripts/render_diagrams.py
+make diagrams
 ```
+
+This only exports; nothing in the repository writes `.drawio` files.

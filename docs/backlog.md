@@ -12,6 +12,7 @@
 | P0 | As a Student, I submit work and receive the automatic policy outcome. | Done and tested |
 | P0 | As a TA, I review and grade a submission. | Done and tested |
 | P1 | As an evaluator, I trace requirements to automated tests and CI. | Done |
+| P1 | As an evaluator, I open each diagram as an editable draw.io source with matching PDF and PNG exports (`make diagrams`). | Done |
 
 ## Week 8 improvement candidates
 

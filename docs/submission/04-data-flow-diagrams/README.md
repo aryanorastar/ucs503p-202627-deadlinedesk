@@ -1,6 +1,6 @@
 # Data-Flow Diagrams
 
-The Level 0 context diagram treats DeadlineDesk as one process. The Level 1 diagram decomposes it into authentication, Placement Track, Academic Dropbox, and reminder/audit processes with their persistent stores.
+The Level 0 context diagram treats DeadlineDesk as one process. The Level 1 diagram decomposes it into six processes that match the role-protected views in `code/core/views.py`: authentication, round management and publishing, checklist readiness, assignment publishing, submission acceptance, and review/grading. Its eight stores are the Django models in SQLite (D6 also covers uploaded files in the local media folder).
 
 ## Canonical files
 
@@ -19,7 +19,9 @@ Both diagrams are maintained once in `project-proposal/figures/`. The entries in
 
 - Rectangles are external entities, ovals are processes, and open-ended rectangles are data stores.
 - Arrows describe data movement, not interface navigation or execution order.
-- Level 1 reads left to right: external entity, then process, then data store. Process-to-process events run vertically down the centre column.
+- Level 1 reads left to right: external entity, then process, then data store. An entity marked `*` is drawn a second time to avoid crossing lines.
+- The two levels are balanced: every flow between an external role and DeadlineDesk in Level 0 appears in Level 1 between that role and one of the processes.
+- There is no email or other external service. The T-24h reminder is a row in D2, and the audit trail is D8.
 
 ## Previews
 
@@ -31,10 +33,12 @@ Both diagrams are maintained once in `project-proposal/figures/`. The entries in
 
 ![DeadlineDesk Level 1 data-flow diagram](https://raw.githubusercontent.com/aryanorastar/ucs503p-202627-deadlinedesk/master/project-proposal/figures/dfd-level-1.png)
 
-## Regenerating
+## Editing and exporting
 
-The `.drawio` files are the source of truth; the PDF and PNG exports are rendered from them.
+The `.drawio` files are the only sources. Edit them in draw.io, then export the PDF and PNG from them with draw.io Desktop's command-line tool:
 
 ```bash
-python3 project-proposal/scripts/render_diagrams.py
+make diagrams
 ```
+
+This only exports; nothing in the repository writes `.drawio` files.

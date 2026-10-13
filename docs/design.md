@@ -83,6 +83,16 @@ Late outcome is an orthogonal attribute: `on_time`, `grace`, or `penalty`. A rej
 | Grade | One-to-one with Submission |
 | AuditLog | Actor plus action and generic entity reference |
 
+## Design diagrams
+
+Editable draw.io sources and their PDF/PNG exports live in `project-proposal/figures/`, and the submission pages show them inline:
+
+- [Use-case diagram](submission/03-use-case-diagrams/README.md)
+- [Data-flow diagrams, Levels 0 and 1](submission/04-data-flow-diagrams/README.md)
+- [Gantt chart, activity diagrams and ER model](submission/07-planning-and-model-diagrams/README.md)
+
+`make diagrams` re-exports every PDF and PNG from the `.drawio` sources. See [Repository structure](repository-structure.md#diagram-sources-and-exports) for the full workflow.
+
 ## Design decisions
 
 ### Django and server-rendered pages
@@ -95,7 +105,7 @@ SQLite makes setup deterministic for evaluators. The application uses the ORM an
 
 ### Similarity as an explicit stub
 
-For UTF-8 text, the system computes the maximum Jaccard overlap of normalized tokens against earlier submissions to the same assignment. Binary and unsupported text return 0. The UI explicitly warns that this is not a plagiarism verdict.
+The system reads each file as UTF-8 and ignores bytes it cannot decode, then computes the maximum Jaccard overlap of lowercase tokens (three or more letters, digits or underscores) against earlier submissions to the same assignment. An empty token set scores 0. Because undecodable bytes are skipped rather than rejected, a binary file such as a PDF can still produce a small non-zero score, so the number is only meaningful for text files. The UI explicitly warns that this is not a plagiarism verdict.
 
 ### Reminder database-first design
 

@@ -9,7 +9,19 @@ The diagram sources are editable in [diagrams.net / Draw.io](https://app.diagram
 | Academic Dropbox activity | [activity-academic.drawio](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/activity-academic.drawio) | [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/activity-academic.pdf) | [PNG](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/activity-academic.png) |
 | Django entity-relationship (ER) model | [er-diagram.drawio](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/er-diagram.drawio) | [PDF](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/er-diagram.pdf) | [PNG](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/blob/master/project-proposal/figures/er-diagram.png) |
 
-The ER model reflects the implemented Week 7 Django models. The activity diagrams describe the placement readiness and academic submission/grading paths. The Gantt chart is a week-level reconstruction from the proposal, backlog, and journals; it does not claim day-level estimates.
+- **ER model.** Taken from `code/core/models.py` and `migrations/0001_initial.py`. It shows every foreign key, including the four `User` links (`created_by`, `student`, `graded_by`, `actor`), the two unique-together constraints, and the one-to-one `Grade`. `AuditLog.entity_id` is a generic reference, not a foreign key.
+- **Activity diagrams.** UML swimlanes for each role and the system. Each decision matches a branch in the views and forms: publishing needs at least one required item; a submission is rejected if it is a duplicate or blocked by the late policy; uploads must be at most 5 MB and an allowed type; the score cannot exceed the maximum.
+- **Gantt chart.** Week-level only. Weeks 4–7 come from the team journals; Week 3 is reconstructed from the proposal's combined W3–W4 row and drawn dashed. It makes no day-level estimates.
+
+## Editing and exporting
+
+Each `.drawio` file is the only source for its diagram. After editing one in draw.io, rebuild every PDF and PNG with:
+
+```bash
+make diagrams
+```
+
+This uses draw.io Desktop's command-line tool and only exports. Nothing in the repository writes `.drawio` files.
 
 ## Inline previews
 

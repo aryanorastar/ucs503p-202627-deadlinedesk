@@ -13,9 +13,11 @@ Source: instructor announcement supplied by Aryan on 25 November 2026.
 - [x] Test cases PDF under `docs/`
 - [x] Final report includes a dedicated section containing all eight UML diagrams, the Gantt chart and test cases
 - [x] Proposal: LaTeX and PDF; proposal presentation: PDF
-- [ ] GitHub Pages links, inline diagram previews and presentation previews work
+- [x] GitHub Pages links, inline diagram previews and presentation previews work
 - [x] Public Django demonstration login and both workflows verified
-- [ ] Application and documentation CI pass for the submitted commit
+- [x] Application and documentation CI pass for the submitted commit
+
+Published verification: [application CI](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636608162), [strict documentation build](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636608214), and [Pages deployment](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636764060) passed for the final application/artifact revision. Fifty live pages and assets were checked after publication; exported PDF and PNG bytes matched the verified local artifacts. See the [verification record](final-verification.md).
 
 ## Scope decisions
 

@@ -52,6 +52,12 @@ The final presentation has 16 slides in the instructor's five-section order: Int
 
 The application changes also received an independent source review focused on private records, ownership checks, CSRF, debug-off startup, static files and the synthetic deployment. No concrete blocking defect was found within that review scope.
 
+## Published verification
+
+The application/artifact revision `b766877` passed [application CI](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636608162) and the [strict MkDocs build and publish job](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636608214). The subsequent [GitHub Pages deployment](https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636764060) succeeded.
+
+After publication, 50 live pages and assets were checked: the home/submission/UML/demo/test/presentation pages, all eight UML pages with their PDF/PNG exports, the report/test/Gantt/presentation PDFs and all 16 slide previews. The downloaded PDF and PNG bytes matched the checked local artifacts. The running Django login endpoint also returned HTTP 200. These checks establish the recorded publication state, while the temporary demonstration still depends on its host and tunnel.
+
 ## Limits and demonstration lifetime
 
 The public endpoint is a temporary tunnel and requires this host, Gunicorn and the tunnel process to remain active. Restarting the tunnel changes its URL. Reopen the live link before evaluation and follow the [startup guide](live-demo.md) if it has expired. The Dockerfile is supplied for persistent hosting but has not been built or deployed in this verification.

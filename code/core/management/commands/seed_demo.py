@@ -55,11 +55,16 @@ class Command(BaseCommand):
                 title=title,
                 defaults={"required": True, "position": position},
             )
-        ReminderLog.objects.update_or_create(
-            placement_round=placement_round,
-            scheduled_for=placement_round.closes_at - timedelta(hours=24),
-            defaults={"created_by": users[User.Role.PLACEMENT_ADMIN]},
-        )
+        reminder = ReminderLog.objects.filter(placement_round=placement_round, status=ReminderLog.Status.SCHEDULED).first()
+        if reminder:
+            reminder.scheduled_for = placement_round.closes_at - timedelta(hours=24)
+            reminder.save(update_fields=["scheduled_for"])
+        else:
+            ReminderLog.objects.create(
+                placement_round=placement_round,
+                scheduled_for=placement_round.closes_at - timedelta(hours=24),
+                created_by=users[User.Role.PLACEMENT_ADMIN],
+            )
         Assignment.objects.update_or_create(
             title="Requirements Traceability Exercise",
             defaults={

@@ -18,3 +18,9 @@ Implemented companies, rounds, required checklists, readiness state, T-24h remin
 ## Week 7 — Integration and validation
 
 Connected the role dashboards, deterministic seed data, CI, browser QA, documentation, demo script, and prototype report. The full twelve-test suite passes and both end-to-end paths are repeatable. [Detailed entry](w7-prototype.md)
+
+## Final submission handoff — 25 November 2026
+
+The final package links the architecture, Placement Track and integration artifacts to this journal's recorded responsibility. It includes component, deployment, package and state models, stricter ownership/privacy guards and an isolated Gunicorn demonstration runner. [Final handoff](final-handoff.md)
+
+Current verification results are recorded centrally, separately from historical Week 7 evidence. No retrospective Week 8–14 contribution entries are asserted where no contemporaneous record exists.

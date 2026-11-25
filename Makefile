@@ -2,7 +2,7 @@ PYTHON ?= .venv/bin/python
 DRAWIO ?= drawio
 FIGURES := project-proposal/figures
 
-.PHONY: setup run test check migrate seed docs docbuild diagrams
+.PHONY: setup run test check migrate seed docs docbuild diagrams demo
 
 setup:
 	python3 -m venv .venv
@@ -33,7 +33,7 @@ docbuild:
 # The .drawio files are the only diagram sources; this target only exports them.
 # Needs draw.io Desktop's CLI (macOS: brew install --cask drawio).
 diagrams:
-	@for src in $(FIGURES)/*.drawio; do \
-		$(DRAWIO) -x -f pdf --crop -a -b 12 -o "$${src%.drawio}.pdf" "$$src" && \
-		$(DRAWIO) -x -f png -s 2 -b 24 -p 1 -o "$${src%.drawio}.png" "$$src" || exit 1; \
-	done
+	$(PYTHON) scripts/export_diagrams.py
+
+demo:
+	$(PYTHON) scripts/run_demo.py

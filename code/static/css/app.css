@@ -136,6 +136,9 @@ button, .button { touch-action: manipulation; }
 .prose h2 { margin-top: 0; }
 .prose h3 { margin-top: 2rem; }
 .prose p { color: var(--muted); }
+.detail-split > *, .dashboard-split > * { min-width: 0; }
+.prose a, .grade-display, .notice { overflow-wrap: anywhere; }
+.check-button:disabled { cursor: not-allowed; opacity: .55; }
 .submission-summary { display: grid; gap: .25rem; padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); text-decoration: none; }
 .submission-summary span, .submission-summary time { color: var(--muted); }
 .metric-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; overflow: hidden; margin-bottom: 2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--line); }

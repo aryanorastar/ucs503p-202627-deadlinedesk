@@ -8,3 +8,4 @@ Email: nbansal3_be24@thapar.edu
 +  [W5 : User flows and interface system](./w5-user-flows.md)
 +  [W6 : Responsive role portals](./w6-responsive-ui.md)
 +  [W7 : Browser QA and demo preparation](./w7-demo-qa.md)
++  [Final submission handoff, 25 November 2026](./final-handoff.md)

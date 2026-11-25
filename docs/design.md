@@ -2,7 +2,7 @@
 
 ## Architectural view
 
-DeadlineDesk uses Django's layered monolith pattern for the Week 7 prototype.
+DeadlineDesk uses Django's layered monolith pattern. The final submission preserves the Week 7 workflow baseline and adds ownership/privacy guards and deployment tooling.
 
 ```text
 Browser
@@ -14,6 +14,12 @@ Browser
 ```
 
 This shape keeps deployment simple while preserving boundaries that can later support PostgreSQL, background workers, or an API frontend.
+
+![Final component architecture](uml/06-component/diagram.png)
+
+![Demo deployment topology](uml/07-deployment/diagram.png)
+
+The [public application demo](live-demo.md) runs separately from the GitHub Pages documentation. Gunicorn serves Django with debug disabled; WhiteNoise serves collected static files, and a temporary HTTPS tunnel forwards requests to the application host. SQLite and private media live in an isolated demonstration directory. The host and tunnel must remain active for the temporary URL to work.
 
 ## Component responsibilities
 
@@ -115,4 +121,14 @@ Publishing stores the intended T-24h delivery record. A future background worker
 
 Implemented controls: password hashing, CSRF, session authentication, route-level authorization, server validation, upload size/type limits, unique database constraints, and transactional publish/grade flows.
 
-Known prototype gaps: development secret fallback, debug mode default, no malware scanning, no object-storage isolation, no rate limiting, no staff ownership restriction during grading, no email verification, and no production deployment hardening.
+Final ownership checks restrict TA assignment lists, rosters, pending submissions, review, grading and academic file access to assignments created by that TA. A Student can view/download only their own submission, and Placement Admin cannot access private academic submissions. Dashboard activity is scoped to its current user. Checklist changes require the round's effective status to be open. These guards are covered by the [final test catalogue](test-cases/README.md).
+
+The final demo runner supplies a random runtime secret when none is configured and disables debug mode. Settings reject debug-disabled startup without an explicit secret. The ordinary development defaults remain available for local development, so a permanent host must configure its environment deliberately.
+
+Remaining gaps: no malware scanning, no rate limiting, no email verification or reminder delivery, no managed object storage, no institutional course/section model and no concurrency qualification on PostgreSQL. Assignment-owner checks are implemented; course-section membership is future work. The temporary single-host demo is not a durable production service.
+
+## Final artifact workflow
+
+The [eight UML types](uml/README.md) each have their own folder under `docs/uml/`, with editable draw.io source and PDF/PNG exports. Detailed Week 7 diagrams remain in `project-proposal/figures/`. Final use-case, class and activity revisions have their own sources to document the new guards; the unchanged submission sequence is shared through relative symlinks. State, component, deployment and package sources live in their final UML folders. DFD and ER diagrams remain supporting material outside the count of eight UML types.
+
+`scripts/export_diagrams.py` exports both baseline and final sources without rewriting them. The preparation script creates missing final sources once and leaves existing editable sources intact. The [final report](submission/08-final-report/README.md) embeds all eight UML types, the [final Gantt chart](gantt-chart/README.md) and the [test cases](test-cases/README.md). See the [submission checklist](FINAL_SUBMISSION_CHECKLIST.md) and [verification record](final-verification.md) for completion evidence.

@@ -1,0 +1,9 @@
+.git
+.venv*
+.demo-runtime
+tmp
+site
+**/db.sqlite3
+**/media
+**/__pycache__
+project-proposal/tmp*.tmp

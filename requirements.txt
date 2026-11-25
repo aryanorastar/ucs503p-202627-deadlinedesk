@@ -1,3 +1,5 @@
 Django==5.2.5
 pytest==8.4.1
 pytest-django==4.11.1
+gunicorn==23.0.0
+whitenoise==6.11.0

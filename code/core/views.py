@@ -56,14 +56,14 @@ def dashboard(request):
     elif request.user.role == User.Role.TA:
         context.update(
             assignments=Assignment.objects.filter(created_by=request.user).annotate(submission_count=Count("submissions"))[:5],
-            pending_submissions=Submission.objects.exclude(status=Submission.Status.GRADED).select_related("assignment", "student")[:6],
+            pending_submissions=Submission.objects.filter(assignment__created_by=request.user).exclude(status=Submission.Status.GRADED).select_related("assignment", "student")[:6],
         )
     else:
         context.update(
             rounds=PlacementRound.objects.select_related("company")[:6],
             scheduled_reminders=ReminderLog.objects.filter(status=ReminderLog.Status.SCHEDULED).select_related("placement_round__company")[:5],
         )
-    context["recent_activity"] = AuditLog.objects.select_related("actor")[:6]
+    context["recent_activity"] = AuditLog.objects.filter(actor=request.user).select_related("actor")[:6]
     return render(request, "core/dashboard.html", context)
 
 
@@ -164,6 +164,8 @@ def checklist_toggle(request, pk):
     if request.method != "POST":
         return HttpResponseNotAllowed(["POST"])
     item = get_object_or_404(ChecklistItem.objects.select_related("placement_round"), pk=pk)
+    if item.placement_round.effective_status != PlacementRound.Status.OPEN:
+        raise PermissionDenied("Checklist changes are allowed only while the round is open.")
     completion, created = ChecklistCompletion.objects.get_or_create(item=item, student=request.user)
     if not created:
         completion.delete()
@@ -174,6 +176,8 @@ def checklist_toggle(request, pk):
 @login_required
 def assignment_list(request):
     assignments = Assignment.objects.select_related("created_by").annotate(submission_count=Count("submissions"))
+    if request.user.role == User.Role.TA:
+        assignments = assignments.filter(created_by=request.user)
     return render(request, "core/assignment_list.html", {"assignments": assignments})
 
 
@@ -206,6 +210,8 @@ def assignment_detail(request, pk):
             penalty_percent=assignment.penalty_percent,
         )
     elif request.user.role == User.Role.TA:
+        if assignment.created_by_id != request.user.id:
+            raise PermissionDenied
         submissions = assignment.submissions.select_related("student").all()
     return render(
         request,
@@ -255,8 +261,7 @@ def assignment_submit(request, pk):
 @login_required
 def submission_detail(request, pk):
     submission = get_object_or_404(Submission.objects.select_related("assignment", "student"), pk=pk)
-    if request.user.role == User.Role.STUDENT and submission.student_id != request.user.id:
-        raise PermissionDenied
+    _check_submission_access(request.user, submission)
     grade = Grade.objects.filter(submission=submission).select_related("graded_by").first()
     return render(request, "core/submission_detail.html", {"submission": submission, "grade": grade})
 
@@ -264,8 +269,7 @@ def submission_detail(request, pk):
 @login_required
 def submission_download(request, pk):
     submission = get_object_or_404(Submission.objects.select_related("student"), pk=pk)
-    if request.user.role == User.Role.STUDENT and submission.student_id != request.user.id:
-        raise PermissionDenied
+    _check_submission_access(request.user, submission)
     return FileResponse(
         submission.file.open("rb"),
         as_attachment=True,
@@ -278,6 +282,7 @@ def submission_review(request, pk):
     if request.method != "POST":
         return HttpResponseNotAllowed(["POST"])
     submission = get_object_or_404(Submission, pk=pk)
+    _check_submission_access(request.user, submission)
     if submission.status != Submission.Status.GRADED:
         submission.status = Submission.Status.UNDER_REVIEW
         submission.save(update_fields=["status"])
@@ -289,6 +294,7 @@ def submission_review(request, pk):
 @transaction.atomic
 def submission_grade(request, pk):
     submission = get_object_or_404(Submission.objects.select_related("assignment", "student"), pk=pk)
+    _check_submission_access(request.user, submission)
     grade = Grade.objects.filter(submission=submission).first()
     form = GradeForm(request.POST or None, instance=grade)
     if request.method == "POST" and form.is_valid():
@@ -302,3 +308,11 @@ def submission_grade(request, pk):
         messages.success(request, "Grade published to the student.")
         return redirect("submission_detail", pk=pk)
     return render(request, "core/form.html", {"form": form, "title": f"Grade {submission.student}", "submit_label": "Publish grade"})
+
+
+def _check_submission_access(user, submission):
+    if user.role == User.Role.STUDENT and submission.student_id == user.id:
+        return
+    if user.role == User.Role.TA and submission.assignment.created_by_id == user.id:
+        return
+    raise PermissionDenied("Only the submitting student and assignment owner can access this submission.")

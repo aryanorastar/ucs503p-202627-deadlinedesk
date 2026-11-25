@@ -18,3 +18,9 @@ Implemented policy-aware assignment forms, file validation, transactional timest
 ## Week 7 — Testing
 
 Verified all six late-policy boundaries plus the full academic workflow, authorization, and rejected-attempt behavior. The fixed suite passes with twelve tests. [Detailed entry](w7-testing.md)
+
+## Final submission handoff — 25 November 2026
+
+The final package links Academic Dropbox, late policies, grading and test traceability to this journal's recorded responsibility. The regression catalogue covers assignment ownership, private files, invalid uploads, duplicate preservation and grade validation alongside the six original policy boundaries. [Final handoff](final-handoff.md)
+
+Current verification results are recorded centrally, separately from historical Week 7 evidence. No retrospective Week 8–14 contribution entries are asserted where no contemporaneous record exists.

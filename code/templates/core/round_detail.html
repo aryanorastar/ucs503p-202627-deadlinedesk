@@ -11,11 +11,11 @@
   <div class="detail-split">
     <section class="section-block"><div class="section-heading"><div><h2>Document checklist</h2><p>Required items determine student readiness.</p></div>{% if user.role == 'placement_admin' %}<a href="{% url 'checklist_create' round.pk %}">Add item</a>{% endif %}</div>
       <div class="checklist">
-        {% for entry in checklist %}<div class="checklist-row {% if entry.completed %}is-complete{% endif %}"><div><strong>{{ entry.item.title }}</strong><span>{% if entry.item.required %}Required{% else %}Optional{% endif %}</span></div>{% if user.role == 'student' %}<form method="post" action="{% url 'checklist_toggle' entry.item.pk %}">{% csrf_token %}<button class="check-button" type="submit" aria-label="Toggle {{ entry.item.title }}">{% if entry.completed %}Completed{% else %}Mark complete{% endif %}</button></form>{% endif %}</div>
+        {% for entry in checklist %}<div class="checklist-row {% if entry.completed %}is-complete{% endif %}"><div><strong>{{ entry.item.title }}</strong><span>{% if entry.item.required %}Required{% else %}Optional{% endif %}</span></div>{% if user.role == 'student' %}<form method="post" action="{% url 'checklist_toggle' entry.item.pk %}">{% csrf_token %}<button class="check-button" type="submit" aria-label="Toggle {{ entry.item.title }}" {% if round.effective_status != 'open' %}disabled{% endif %}>{% if entry.completed %}Completed{% else %}Mark complete{% endif %}</button></form>{% endif %}</div>
         {% empty %}<div class="empty-state compact"><p>No checklist items yet.</p></div>{% endfor %}
       </div>
     </section>
-    <aside class="section-block"><div class="section-heading"><div><h2>Reminder log</h2><p>Outbound delivery is simulated in Week 7.</p></div></div>
+    <aside class="section-block"><div class="section-heading"><div><h2>Reminder log</h2><p>Schedule recorded. Email delivery is future work.</p></div></div>
       <div class="record-list">{% for reminder in reminders %}<div class="static-row"><div><strong>T-24h reminder</strong><span>{{ reminder.get_status_display }}</span></div><time>{{ reminder.scheduled_for|date:"d M, g:i A" }}</time></div>{% empty %}<div class="empty-state compact"><p>Publishing creates the reminder entry.</p></div>{% endfor %}</div>
     </aside>
   </div>

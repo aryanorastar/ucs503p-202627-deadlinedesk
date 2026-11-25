@@ -18,3 +18,9 @@ Built the shared navigation, message stack, footer, form page, role dashboards, 
 ## Week 7 — Browser QA and demo
 
 Tested all roles, completed the placement checklist transition, verified the academic review flow, checked the 390 × 844 layout, confirmed zero console warnings/errors, and prepared the evaluator walkthrough. [Detailed entry](w7-demo-qa.md)
+
+## Final submission handoff — 25 November 2026
+
+The final package links the interface, documentation and evaluator walkthrough artifacts to this journal's recorded responsibility. The final site groups the report, five-section presentation, eight UML types, schedule, test catalogue and public demo guide. [Final handoff](final-handoff.md)
+
+Current verification results are recorded centrally, separately from historical Week 7 evidence. No retrospective Week 8–14 contribution entries are asserted where no contemporaneous record exists.

@@ -14,15 +14,27 @@
 | P1 | As an evaluator, I trace requirements to automated tests and CI. | Done |
 | P1 | As an evaluator, I open each diagram as an editable draw.io source with matching PDF and PNG exports (`make diagrams`). | Done |
 
-## Week 8 improvement candidates
+## Final preparation, 25 November 2026
+
+| Priority | Completed scope | Evidence |
+|---|---|---|
+| P0 | Restrict academic rosters, review, grading and files to the assignment owner; preserve student-owned access. | Ownership regression tests in the [final test catalogue](test-cases/README.md) |
+| P0 | Scope dashboard audit activity to the current user and block checklist changes outside an open round. | Privacy/timing regression tests |
+| P1 | Supply eight UML types in separate folders, a final schedule and test-case catalogue. | [UML](uml/README.md), [Gantt](gantt-chart/README.md), [tests](test-cases/README.md) |
+| P1 | Assemble final report and presentation in the instructor's required structure. | [Final submission index](submission/index.md) |
+| P1 | Provide an isolated Gunicorn demo runner and temporary public HTTPS access. | [Demo guide](live-demo.md); actual observations in [verification](final-verification.md) |
+
+Publication and browser verification status belongs in the [final checklist](FINAL_SUBMISSION_CHECKLIST.md). This table records implemented scope, not an uptime guarantee.
+
+## Remaining improvement candidates
 
 | Priority | Story | Reason |
 |---|---|---|
-| P0 | Restrict TAs to their own course sections. | Close authorization gap found in threat review. |
+| P0 | Add course/section membership beyond assignment ownership. | Assignment-owner checks now exist; institutional course scoping needs a data model. |
 | P0 | Add edit/cancel flows with audit detail. | Correct mistakes without database-admin access. |
 | P1 | Add resubmission policy and version history. | One submission is too restrictive for real courses. |
 | P1 | Add a reminder worker with retry-safe email adapter. | Convert the Week 7 log into delivery. |
-| P1 | Deploy staging with PostgreSQL and managed files. | Enable pilot access and concurrency testing. |
+| P1 | Add persistent hosting with PostgreSQL and managed files. | The temporary public demo still depends on its application host and tunnel. |
 | P2 | Add assignment/round filters and pagination. | Prepare for larger deadline volume. |
 
 ## Deferred by scope decision
@@ -33,4 +45,4 @@
 - Placement interview scoring
 - Advanced analytics dashboard
 
-These do not improve the Week 7 end-to-end proof enough to justify their delivery risk.
+These remain outside the final demonstration scope.

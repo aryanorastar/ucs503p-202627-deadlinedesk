@@ -1,0 +1,110 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[margin=22mm]{geometry}
+\usepackage{graphicx,booktabs,tabularx,longtable,enumitem,pdflscape,pdfpages,xurl}
+\usepackage[hidelinks]{hyperref}
+\setlist{itemsep=3pt}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{0pt}
+\title{DeadlineDesk\\Final Project Report\\\large UCS503P Software Engineering}
+\author{Aryan Gupta (1024030764)\\Aksh Goyal (1024030766)\\Naveen Bansal (1024030767)}
+\date{25 November 2026\\Evaluation: 1 December 2026, 8:00 AM, Lab 105}
+\newcommand{\diagram}[3]{\clearpage\subsection{#1}\label{#2}\begin{center}\includegraphics[width=\linewidth,height=0.78\textheight,keepaspectratio]{#3}\end{center}}
+\begin{document}
+\maketitle
+\begin{center}Thapar Institute of Engineering and Technology\\Submitted to Mr. Jeelani Asif\end{center}
+\begin{abstract}
+DeadlineDesk combines placement-round readiness and academic assignment submission in a single role-based web application. Placement administrators publish rounds and required document checklists. Students record readiness and upload academic work. Teaching assistants configure late rules, review submissions and publish grades. Django supplies authentication, form validation, ORM persistence and transaction support. The final submission preserves the Week 7 functional baseline and adds stricter academic ownership, private audit feeds, open-round checklist enforcement, deployment tooling and a complete evaluation package. The system stores reminder intentions and reports a simple token-overlap similarity score. It does not deliver reminders or make plagiarism decisions. Verification includes 36 automated test cases and a separate live demonstration record.
+\end{abstract}
+\tableofcontents
+\clearpage
+\section{Introduction}
+Students handle academic deadlines and placement requirements at the same time. The information includes different due times, required documents and late policies. A deadline list alone cannot determine whether a student is ready for a placement round or whether an assignment upload should be accepted. DeadlineDesk joins those decisions to the records and roles responsible for them.
+
+The project has two demonstrable paths. In Placement Track, an administrator creates a company, drafts a round, adds required checklist items and publishes it. Students complete items while the round is open and see readiness. In Academic Dropbox, a TA publishes an assignment, a student submits a file, the server applies the late rule and the assignment owner reviews and grades the accepted work.
+
+\section{Background and scope}
+The original proposal and Week 7 report are retained as milestone documents. They are available alongside the final package in the repository. The final application is a server-rendered Django monolith. HTML templates and CSS form the frontend, Python views/forms/services form the backend, and SQLite plus private local media store the data. Python is the language and Django is the framework; they describe different layers of the same implementation.
+
+The scope supports three roles: Student, TA / Faculty and Placement Admin. It uses local demonstration accounts and synthetic sample records. It has no institutional single sign-on, external email provider, payment integration or third-party plagiarism service. These omissions are explicit boundaries rather than completed features.
+
+\section{Problem statement and requirements}
+The problem is to maintain one enforceable record for readiness, submission acceptance and feedback while preventing one role from accessing another user's private academic material. The server must use its own timestamp and a published policy to decide lateness, and rejected uploads must not become accepted submissions.
+
+\begin{tabularx}{\linewidth}{lX}
+\toprule ID & Acceptance criterion \\\midrule
+FR-AUTH-01 & A valid account can sign in, use its dashboard and sign out. \\
+FR-AUTH-02 & Role and assignment ownership checks reject unauthorized actions. \\
+FR-PL-03 & A round requires at least one required item before publication. \\
+FR-PL-04 & Publication records the intended reminder time at closing minus 24 hours. \\
+FR-PL-05 & Student checklist completion is individual and mutable only in an open round. \\
+FR-AC-02 & Uploads validate extension and a 5 MiB size ceiling, with one accepted submission per student/assignment. \\
+FR-AC-03 & Reject, penalty and grace policies produce the specified boundary outcomes. \\
+FR-AC-05 & The assignment owner can publish a score no greater than its maximum and student-visible feedback. \\
+NFR-SEC-03 & Only the submitting student and assignment owner can view/download a private submission; dashboard activity is scoped to the current user. \\
+\bottomrule
+\end{tabularx}
+
+\section{Solution architecture and implementation}
+\subsection{Request and persistence workflow}
+The browser sends an HTTP request to Django's URL router. Session authentication establishes the current user; decorators and ownership checks authorize the action. Model forms validate submitted fields. Views call policy services, write domain models through the ORM and append audit events. Templates render the resulting state. File downloads pass through an authenticated view instead of a public media URL.
+
+\subsection{Placement Track}
+Company and PlacementRound identify the placement opportunity. A round has opening and closing times. Draft and archived are explicit stored states; the published round's effective open or closed state follows server time. ChecklistItem records required/optional items, and ChecklistCompletion has a unique student/item constraint. Readiness requires at least one required item and completion of every required item. A repeated toggle reverses completion, so it is intentionally not a retry-idempotent API. Students cannot change checklist items on a draft, archived, future or expired round.
+
+Publishing writes one matching ReminderLog for the round and closing-minus-24-hours timestamp. The record retains scheduled status. There is no worker that sends email or marks the reminder sent. The user interface demonstrates reminder persistence only.
+
+\subsection{Academic Dropbox}
+Assignment stores the due time and one late policy. Submission stores the uploaded file, student, accepted timestamp, late status, penalty percentage, similarity score and review status. A unique constraint prevents two accepted submissions for one student/assignment. Grade has a one-to-one link to Submission and records the TA, score, maximum and feedback.
+
+The late-policy service accepts an upload at the exact deadline. Reject policy blocks any later timestamp. Penalty policy accepts late work and stores the configured percentage. Grace policy accepts through the inclusive grace boundary and rejects later attempts. The system stores the raw awarded grade separately from the late percentage; it does not silently subtract the penalty from the displayed score. Rejected attempts leave no Submission record.
+
+The similarity stub tokenizes UTF-8-decoded content and takes the maximum Jaccard overlap against earlier submissions to that assignment. An empty token set scores zero. Ignored undecodable bytes mean a binary file can produce a small non-zero result. The interface labels the number as a stub rather than a plagiarism finding.
+
+\subsection{Final access-control improvements}
+The final version restricts TA assignment lists, rosters, pending submissions, review, grading and file access to assignments created by that TA. Students can access their own submissions. Placement administrators cannot download academic files. The recent-activity dashboard queries the current user's audit events. A graded submission stays graded if the owner presses start review again, while grade revision remains supported. These controls close specific prototype limitations without changing its data schema.
+
+\subsection{Database constraints and failure behavior}
+Unique constraints protect checklist completions and accepted submissions; Grade uses a one-to-one relation. Publish, upload and grade views use database transactions. Server-side forms reject invalid time ranges, policy configuration, oversized/unsupported files and scores above the maximum. The system still lacks a concurrency/load qualification on PostgreSQL and an upload malware scanner. Extension validation is not a security claim about file contents.
+
+\section{Design and evaluation artifacts}
+This dedicated section contains all eight UML types, the final Gantt chart and the complete test-case catalogue. Each UML type also has its own folder under \nolinkurl{docs/uml/}, with a native draw.io source and matching PDF/PNG exports. Final use-case, class and activity models include the current ownership and timing guards. The unchanged submission sequence links to its shared canonical source. Earlier Week 7 sources remain available with the milestone documents. DFD and ER diagrams remain supporting material outside the count of eight UML types.
+
+\diagram{Use-case diagram}{fig:usecase}{../docs/uml/01-use-case/diagram.pdf}
+\diagram{Class diagram}{fig:class}{../docs/uml/02-class/diagram.pdf}
+\diagram{Sequence diagram}{fig:sequence}{../docs/uml/03-sequence/diagram.pdf}
+\diagram{Activity diagram}{fig:activity}{../docs/uml/04-activity/diagram.pdf}
+\diagram{State-machine diagram}{fig:state}{../docs/uml/05-state-machine/diagram.pdf}
+\diagram{Component diagram}{fig:component}{../docs/uml/06-component/diagram.pdf}
+\diagram{Deployment diagram}{fig:deployment}{../docs/uml/07-deployment/diagram.pdf}
+\diagram{Package diagram}{fig:package}{../docs/uml/08-package/diagram.pdf}
+\diagram{Gantt chart and milestone provenance}{fig:gantt}{../docs/gantt-chart/gantt-chart.pdf}
+The schedule uses the archived Week 4--7 journals and dated repository revisions. The combined Week 3--4 proposal phase is reconstructed. The evaluation milestone is scheduled for 1 December. Unrecorded weekly work is not retrospectively assigned to team members.
+
+\clearpage\subsection{Test cases and observed results}
+\input{../docs/test-cases/catalog.tex}
+
+\clearpage\section{Results and demonstration}
+The fixed automated suite contains 36 passing cases. It includes six policy boundaries, the full submission-to-grade path, the placement publication/readiness path, twelve unrelated-user route combinations, four closed/non-open checklist conditions, privacy checks, file-validation failures, duplicate preservation, authentication, CSRF and repeatable demo seeding. Passing these cases demonstrates the listed assertions rather than complete coverage of every possible input.
+
+The application demonstration uses an isolated database and media directory with Gunicorn and debug disabled. WhiteNoise serves static assets. A temporary HTTPS tunnel makes the running demonstration accessible from an external browser. The host and tunnel must remain active, and the public URL can change when restarted. Permanent hosting can use the included Dockerfile with a persistent data volume and environment-supplied secret. A full production service with uptime guarantees is outside this evaluation deployment.
+
+GitHub Pages hosts the MkDocs project site, reports, presentations and diagram previews. It does not execute Python and is separate from the Django demonstration. Current links, verification timestamps and browser observations are recorded in \nolinkurl{docs/live-demo.md} and \nolinkurl{docs/final-verification.md}.
+
+\section{Team records and reproducibility}
+The individual Markdown journals preserve Aryan's architecture/Placement Track role, Aksh's Academic Dropbox/testing role and Naveen's interface/documentation role. Final review entries link the assembled artifacts and current verification evidence. They do not claim unverified weekly contributions after Week 7.
+
+Use Python 3.11 or later. Create a virtual environment, install \nolinkurl{requirements.txt}, run migrations and the synthetic seed command, then start the application. The dedicated demo runner \nolinkurl{scripts/run_demo.py} uses a separate database and media root. Run \texttt{python -m pytest} for automated verification and \texttt{python -m mkdocs build --strict} for documentation. Export diagrams with \texttt{python scripts/export\_diagrams.py}; this never rewrites native sources. Compile this report from its directory with \texttt{tectonic main.tex}.
+
+\section{Limitations and further work}
+The implementation supports a student project demonstration. Reminder delivery, email verification, institutional SSO, malware scanning, rate limiting, shared object storage, resubmission/version history and PostgreSQL concurrency qualification remain future work. SQLite and local media suit a single-host demo but require durable volumes and backups on a permanent host. The similarity stub must not be used to accuse a student of plagiarism. Any campus rollout would require institutional privacy review, scoped operational access and broader reliability testing.
+
+\section{Conclusion}
+DeadlineDesk demonstrates connected placement readiness and academic submission workflows with server-enforced late rules, private ownership checks and traceable feedback. The final package supplies source code, milestone documents, individual journals, eight UML types, schedule, test-case evidence, a final presentation and a reproducible demonstration deployment.
+
+\begin{thebibliography}{9}
+\bibitem{repo} DeadlineDesk repository. \url{https://github.com/aryanorastar/ucs503p-202627-deadlinedesk}.
+\bibitem{source} Implementation: \nolinkurl{code/core/models.py}, \nolinkurl{views.py}, \nolinkurl{forms.py}, \nolinkurl{services.py} and \nolinkurl{tests/} in the repository.
+\bibitem{baseline} DeadlineDesk project proposal and Week 7 prototype report, retained in \nolinkurl{project-proposal/} and \nolinkurl{project-report-prototype-stage/}.
+\bibitem{instruction} Instructor final-evaluation announcement supplied by Aryan, 25 November 2026. Evaluation: 1 December 2026, 8:00 AM, Lab 105.
+\end{thebibliography}
+\end{document}

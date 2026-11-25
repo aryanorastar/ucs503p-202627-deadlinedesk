@@ -1,0 +1,299 @@
+\subsection*{Automated test catalogue}
+
+Run date: 25 November 2026. Result: 36 passed, zero failed. Python 3.12 with Django 5.2.5. The Django client exercises the application and database; live browser checks are recorded separately.
+
+\begingroup\raggedright\emergencystretch=3em
+
+\begin{enumerate}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-01 Placement role denial } (FR-AUTH-02)\par
+
+\textbf{Steps:} Sign in as Student and request the company-create page.\par
+
+\textbf{Expected and observed:} HTTP 403. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_student_cannot_open_placement_admin_create_page}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-02 Publication reminder } (FR-PL-03 / FR-PL-04)\par
+
+\textbf{Steps:} Publish a draft round containing a required checklist item.\par
+
+\textbf{Expected and observed:} Published state and a reminder record exactly 24 hours before closing. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_publishing_round_creates_t_minus_24_hour_reminder}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-03 Checklist toggle } (FR-PL-05)\par
+
+\textbf{Steps:} Toggle an open round item twice as the same Student.\par
+
+\textbf{Expected and observed:} First request adds completion, second removes it. This is a toggle, not HTTP retry idempotency. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_student_checklist_completion_is_idempotent_toggle}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-04 Penalty-to-grade workflow } (FR-AC-02 to FR-AC-05)\par
+
+\textbf{Steps:} Upload late under a 20 percent penalty, then grade as the assignment owner.\par
+
+\textbf{Expected and observed:} One accepted submission with penalty 20 and a stored grade of 82/100. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_late_penalty_submission_and_ta_grade_complete_academic_path}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-05 Rejected upload persistence } (FR-AC-03)\par
+
+\textbf{Steps:} Upload after a reject-policy deadline.\par
+
+\textbf{Expected and observed:} Redirect with rejection feedback and no Submission row. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_reject_policy_does_not_create_late_submission}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-06 Student file privacy } (NFR-SEC-03)\par
+
+\textbf{Steps:} Request another student's uploaded file.\par
+
+\textbf{Expected and observed:} HTTP 403 without file disclosure. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_student_cannot_download_another_students_submission}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-07 Submission ownership [submission\_detail-ta]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_detail-ta]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-08 Submission ownership [submission\_detail-placement\_admin]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_detail-placement_admin]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-09 Submission ownership [submission\_detail-student]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_detail-student]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-10 Submission ownership [submission\_download-ta]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_download-ta]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-11 Submission ownership [submission\_download-placement\_admin]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_download-placement_admin]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-12 Submission ownership [submission\_download-student]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_download-student]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-13 Submission ownership [submission\_review-ta]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_review-ta]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-14 Submission ownership [submission\_review-placement\_admin]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_review-placement_admin]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-15 Submission ownership [submission\_review-student]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_review-student]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-16 Submission ownership [submission\_grade-ta]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_grade-ta]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-17 Submission ownership [submission\_grade-placement\_admin]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_grade-placement_admin]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-18 Submission ownership [submission\_grade-student]} (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.\par
+
+\textbf{Expected and observed:} HTTP 403 and no grade creation for each role and route combination. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_access_rejects_unrelated_users[submission_grade-student]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-19 Checklist time guard [draft-1]} (FR-PL-05)\par
+
+\textbf{Steps:} Post a checklist change against a draft, archived, closed or future round, as indicated by the parameters.\par
+
+\textbf{Expected and observed:} HTTP 403 and no ChecklistCompletion row. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_checklist_changes_require_open_round[draft-1]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-20 Checklist time guard [archived-1]} (FR-PL-05)\par
+
+\textbf{Steps:} Post a checklist change against a draft, archived, closed or future round, as indicated by the parameters.\par
+
+\textbf{Expected and observed:} HTTP 403 and no ChecklistCompletion row. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_checklist_changes_require_open_round[archived-1]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-21 Checklist time guard [published--1]} (FR-PL-05)\par
+
+\textbf{Steps:} Post a checklist change against a draft, archived, closed or future round, as indicated by the parameters.\par
+
+\textbf{Expected and observed:} HTTP 403 and no ChecklistCompletion row. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_checklist_changes_require_open_round[published--1]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-22 Checklist time guard [published-2]} (FR-PL-05)\par
+
+\textbf{Steps:} Post a checklist change against a draft, archived, closed or future round, as indicated by the parameters.\par
+
+\textbf{Expected and observed:} HTTP 403 and no ChecklistCompletion row. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_checklist_changes_require_open_round[published-2]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-23 Audit feed privacy } (NFR-SEC-03)\par
+
+\textbf{Steps:} Create an audit event for a TA, then load the Student dashboard.\par
+
+\textbf{Expected and observed:} Dashboard loads and its activity context excludes the TA event. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_dashboard_does_not_expose_other_users_activity}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-24 TA roster ownership } (FR-AUTH-02)\par
+
+\textbf{Steps:} Open another TA's assignment and list assignments as the unrelated TA.\par
+
+\textbf{Expected and observed:} Detail returns 403, and the list excludes the other TA's assignment. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_ta_cannot_view_other_assignment_roster}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-25 Upload validation [blocked-extension]} (FR-AC-02)\par
+
+\textbf{Steps:} Upload the parameterized blocked extension or file exceeding 5 MiB.\par
+
+\textbf{Expected and observed:} Form reports a file error and creates no submission. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_invalid_upload_creates_no_submission[blocked-extension]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-26 Upload validation [oversized-file]} (FR-AC-02)\par
+
+\textbf{Steps:} Upload the parameterized blocked extension or file exceeding 5 MiB.\par
+
+\textbf{Expected and observed:} Form reports a file error and creates no submission. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_invalid_upload_creates_no_submission[oversized-file]}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-27 Login, logout and CSRF } (FR-AUTH-01 / NFR-SEC-01)\par
+
+\textbf{Steps:} Try anonymous dashboard access, login without CSRF, invalid credentials, valid CSRF login and POST logout.\par
+
+\textbf{Expected and observed:} Anonymous access redirects, missing CSRF returns 403, bad credentials stay on the form, valid login reaches dashboard and logout ends access. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_login_logout_and_csrf_boundary}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-28 Publication precondition and repeat } (FR-PL-03)\par
+
+\textbf{Steps:} Publish without an item, add a required item, then publish twice.\par
+
+\textbf{Expected and observed:} First attempt remains draft without reminder. Later attempts leave exactly one matching reminder. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_publish_without_required_item_fails_and_repeat_is_deduplicated}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-29 Duplicate, grade validation and persistence } (FR-AC-02 / FR-AC-05)\par
+
+\textbf{Steps:} Upload twice, submit a score above the maximum, then review and grade correctly. Try reviewing the graded record and download as the student.\par
+
+\textbf{Expected and observed:} Original file remains the only submission. Invalid score creates no grade. Final state stays graded and the student sees feedback and original bytes. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_duplicate_upload_and_invalid_grade_preserve_existing_data}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-30 Repeatable demo startup } (NFR-REL-01)\par
+
+\textbf{Steps:} Run the synthetic demo seed command twice.\par
+
+\textbf{Expected and observed:} Exactly three users, one company, one round, three checklist items, one assignment and one updated reminder. Existing reminder identity is preserved. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_demo_seed_refreshes_without_duplicating_schedule}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-31 Exact deadline } (FR-AC-03)\par
+
+\textbf{Steps:} Evaluate an upload at the exact due timestamp.\par
+
+\textbf{Expected and observed:} Accepted on time with no penalty. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_submission_at_exact_deadline_is_on_time}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-32 One second late } (FR-AC-03)\par
+
+\textbf{Steps:} Apply reject policy one second after the due timestamp.\par
+
+\textbf{Expected and observed:} Rejected, with no accepted late status. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_reject_policy_blocks_one_second_late}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-33 Configured penalty } (FR-AC-03)\par
+
+\textbf{Steps:} Apply penalty policy to a late timestamp with a 15 percent penalty.\par
+
+\textbf{Expected and observed:} Accepted with penalty status and the configured 15 percent. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_penalty_policy_accepts_and_applies_configured_percentage}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-34 Grace boundary } (FR-AC-03)\par
+
+\textbf{Steps:} Submit exactly 30 minutes after the due time with 30 minutes of grace.\par
+
+\textbf{Expected and observed:} Accepted in the grace window. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_grace_policy_accepts_at_grace_boundary}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-35 After grace } (FR-AC-03)\par
+
+\textbf{Steps:} Submit one second after the configured grace boundary.\par
+
+\textbf{Expected and observed:} Rejected. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_grace_policy_rejects_after_grace_boundary}}\end{minipage}
+
+\item \begin{minipage}[t]{\linewidth}\textbf{TC-36 Unsupported late policy } (NFR-REL-01)\par
+
+\textbf{Steps:} Evaluate a late timestamp using an unknown policy name.\par
+
+\textbf{Expected and observed:} ValueError prevents silently accepting an unsupported late policy. \textbf{PASS}.\par
+
+{\footnotesize Source: \nolinkurl{test_unknown_policy_fails_closed}}\end{minipage}
+
+\end{enumerate}
+
+\endgroup

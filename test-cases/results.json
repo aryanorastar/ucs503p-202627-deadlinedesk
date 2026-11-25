@@ -1,0 +1,367 @@
+{
+  "date": "2026-11-25",
+  "command": "python -m pytest -q --junitxml=tmp/final-qa/junit.xml",
+  "passed": 36,
+  "cases": [
+    {
+      "id": "TC-01",
+      "title": "Placement role denial",
+      "parameters": "",
+      "requirement": "FR-AUTH-02",
+      "steps": "Sign in as Student and request the company-create page.",
+      "expected": "HTTP 403.",
+      "source": "test_student_cannot_open_placement_admin_create_page",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-02",
+      "title": "Publication reminder",
+      "parameters": "",
+      "requirement": "FR-PL-03 / FR-PL-04",
+      "steps": "Publish a draft round containing a required checklist item.",
+      "expected": "Published state and a reminder record exactly 24 hours before closing.",
+      "source": "test_publishing_round_creates_t_minus_24_hour_reminder",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-03",
+      "title": "Checklist toggle",
+      "parameters": "",
+      "requirement": "FR-PL-05",
+      "steps": "Toggle an open round item twice as the same Student.",
+      "expected": "First request adds completion, second removes it. This is a toggle, not HTTP retry idempotency.",
+      "source": "test_student_checklist_completion_is_idempotent_toggle",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-04",
+      "title": "Penalty-to-grade workflow",
+      "parameters": "",
+      "requirement": "FR-AC-02 to FR-AC-05",
+      "steps": "Upload late under a 20 percent penalty, then grade as the assignment owner.",
+      "expected": "One accepted submission with penalty 20 and a stored grade of 82/100.",
+      "source": "test_late_penalty_submission_and_ta_grade_complete_academic_path",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-05",
+      "title": "Rejected upload persistence",
+      "parameters": "",
+      "requirement": "FR-AC-03",
+      "steps": "Upload after a reject-policy deadline.",
+      "expected": "Redirect with rejection feedback and no Submission row.",
+      "source": "test_reject_policy_does_not_create_late_submission",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-06",
+      "title": "Student file privacy",
+      "parameters": "",
+      "requirement": "NFR-SEC-03",
+      "steps": "Request another student's uploaded file.",
+      "expected": "HTTP 403 without file disclosure.",
+      "source": "test_student_cannot_download_another_students_submission",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-07",
+      "title": "Submission ownership",
+      "parameters": "[submission_detail-ta]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_detail-ta]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-08",
+      "title": "Submission ownership",
+      "parameters": "[submission_detail-placement_admin]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_detail-placement_admin]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-09",
+      "title": "Submission ownership",
+      "parameters": "[submission_detail-student]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_detail-student]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-10",
+      "title": "Submission ownership",
+      "parameters": "[submission_download-ta]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_download-ta]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-11",
+      "title": "Submission ownership",
+      "parameters": "[submission_download-placement_admin]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_download-placement_admin]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-12",
+      "title": "Submission ownership",
+      "parameters": "[submission_download-student]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_download-student]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-13",
+      "title": "Submission ownership",
+      "parameters": "[submission_review-ta]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_review-ta]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-14",
+      "title": "Submission ownership",
+      "parameters": "[submission_review-placement_admin]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_review-placement_admin]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-15",
+      "title": "Submission ownership",
+      "parameters": "[submission_review-student]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_review-student]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-16",
+      "title": "Submission ownership",
+      "parameters": "[submission_grade-ta]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_grade-ta]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-17",
+      "title": "Submission ownership",
+      "parameters": "[submission_grade-placement_admin]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_grade-placement_admin]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-18",
+      "title": "Submission ownership",
+      "parameters": "[submission_grade-student]",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an unrelated user in the parameterized role and request the indicated detail/download/review/grade route.",
+      "expected": "HTTP 403 and no grade creation for each role and route combination.",
+      "source": "test_submission_access_rejects_unrelated_users[submission_grade-student]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-19",
+      "title": "Checklist time guard",
+      "parameters": "[draft-1]",
+      "requirement": "FR-PL-05",
+      "steps": "Post a checklist change against a draft, archived, closed or future round, as indicated by the parameters.",
+      "expected": "HTTP 403 and no ChecklistCompletion row.",
+      "source": "test_checklist_changes_require_open_round[draft-1]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-20",
+      "title": "Checklist time guard",
+      "parameters": "[archived-1]",
+      "requirement": "FR-PL-05",
+      "steps": "Post a checklist change against a draft, archived, closed or future round, as indicated by the parameters.",
+      "expected": "HTTP 403 and no ChecklistCompletion row.",
+      "source": "test_checklist_changes_require_open_round[archived-1]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-21",
+      "title": "Checklist time guard",
+      "parameters": "[published--1]",
+      "requirement": "FR-PL-05",
+      "steps": "Post a checklist change against a draft, archived, closed or future round, as indicated by the parameters.",
+      "expected": "HTTP 403 and no ChecklistCompletion row.",
+      "source": "test_checklist_changes_require_open_round[published--1]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-22",
+      "title": "Checklist time guard",
+      "parameters": "[published-2]",
+      "requirement": "FR-PL-05",
+      "steps": "Post a checklist change against a draft, archived, closed or future round, as indicated by the parameters.",
+      "expected": "HTTP 403 and no ChecklistCompletion row.",
+      "source": "test_checklist_changes_require_open_round[published-2]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-23",
+      "title": "Audit feed privacy",
+      "parameters": "",
+      "requirement": "NFR-SEC-03",
+      "steps": "Create an audit event for a TA, then load the Student dashboard.",
+      "expected": "Dashboard loads and its activity context excludes the TA event.",
+      "source": "test_dashboard_does_not_expose_other_users_activity",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-24",
+      "title": "TA roster ownership",
+      "parameters": "",
+      "requirement": "FR-AUTH-02",
+      "steps": "Open another TA's assignment and list assignments as the unrelated TA.",
+      "expected": "Detail returns 403, and the list excludes the other TA's assignment.",
+      "source": "test_ta_cannot_view_other_assignment_roster",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-25",
+      "title": "Upload validation",
+      "parameters": "[blocked-extension]",
+      "requirement": "FR-AC-02",
+      "steps": "Upload the parameterized blocked extension or file exceeding 5 MiB.",
+      "expected": "Form reports a file error and creates no submission.",
+      "source": "test_invalid_upload_creates_no_submission[blocked-extension]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-26",
+      "title": "Upload validation",
+      "parameters": "[oversized-file]",
+      "requirement": "FR-AC-02",
+      "steps": "Upload the parameterized blocked extension or file exceeding 5 MiB.",
+      "expected": "Form reports a file error and creates no submission.",
+      "source": "test_invalid_upload_creates_no_submission[oversized-file]",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-27",
+      "title": "Login, logout and CSRF",
+      "parameters": "",
+      "requirement": "FR-AUTH-01 / NFR-SEC-01",
+      "steps": "Try anonymous dashboard access, login without CSRF, invalid credentials, valid CSRF login and POST logout.",
+      "expected": "Anonymous access redirects, missing CSRF returns 403, bad credentials stay on the form, valid login reaches dashboard and logout ends access.",
+      "source": "test_login_logout_and_csrf_boundary",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-28",
+      "title": "Publication precondition and repeat",
+      "parameters": "",
+      "requirement": "FR-PL-03",
+      "steps": "Publish without an item, add a required item, then publish twice.",
+      "expected": "First attempt remains draft without reminder. Later attempts leave exactly one matching reminder.",
+      "source": "test_publish_without_required_item_fails_and_repeat_is_deduplicated",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-29",
+      "title": "Duplicate, grade validation and persistence",
+      "parameters": "",
+      "requirement": "FR-AC-02 / FR-AC-05",
+      "steps": "Upload twice, submit a score above the maximum, then review and grade correctly. Try reviewing the graded record and download as the student.",
+      "expected": "Original file remains the only submission. Invalid score creates no grade. Final state stays graded and the student sees feedback and original bytes.",
+      "source": "test_duplicate_upload_and_invalid_grade_preserve_existing_data",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-30",
+      "title": "Repeatable demo startup",
+      "parameters": "",
+      "requirement": "NFR-REL-01",
+      "steps": "Run the synthetic demo seed command twice.",
+      "expected": "Exactly three users, one company, one round, three checklist items, one assignment and one updated reminder. Existing reminder identity is preserved.",
+      "source": "test_demo_seed_refreshes_without_duplicating_schedule",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-31",
+      "title": "Exact deadline",
+      "parameters": "",
+      "requirement": "FR-AC-03",
+      "steps": "Evaluate an upload at the exact due timestamp.",
+      "expected": "Accepted on time with no penalty.",
+      "source": "test_submission_at_exact_deadline_is_on_time",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-32",
+      "title": "One second late",
+      "parameters": "",
+      "requirement": "FR-AC-03",
+      "steps": "Apply reject policy one second after the due timestamp.",
+      "expected": "Rejected, with no accepted late status.",
+      "source": "test_reject_policy_blocks_one_second_late",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-33",
+      "title": "Configured penalty",
+      "parameters": "",
+      "requirement": "FR-AC-03",
+      "steps": "Apply penalty policy to a late timestamp with a 15 percent penalty.",
+      "expected": "Accepted with penalty status and the configured 15 percent.",
+      "source": "test_penalty_policy_accepts_and_applies_configured_percentage",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-34",
+      "title": "Grace boundary",
+      "parameters": "",
+      "requirement": "FR-AC-03",
+      "steps": "Submit exactly 30 minutes after the due time with 30 minutes of grace.",
+      "expected": "Accepted in the grace window.",
+      "source": "test_grace_policy_accepts_at_grace_boundary",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-35",
+      "title": "After grace",
+      "parameters": "",
+      "requirement": "FR-AC-03",
+      "steps": "Submit one second after the configured grace boundary.",
+      "expected": "Rejected.",
+      "source": "test_grace_policy_rejects_after_grace_boundary",
+      "result": "PASS"
+    },
+    {
+      "id": "TC-36",
+      "title": "Unsupported late policy",
+      "parameters": "",
+      "requirement": "NFR-REL-01",
+      "steps": "Evaluate a late timestamp using an unknown policy name.",
+      "expected": "ValueError prevents silently accepting an unsupported late policy.",
+      "source": "test_unknown_policy_fails_closed",
+      "result": "PASS"
+    }
+  ]
+}

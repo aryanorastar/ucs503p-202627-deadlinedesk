@@ -561,6 +561,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#published-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Published verification
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#limits-and-demonstration-lifetime" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1566,6 +1577,9 @@
 <p>The final report compiles from LaTeX and includes its dedicated section containing eight UML types, Gantt chart and all test cases. Each UML folder supplies editable draw.io XML, a one-page PDF and PNG. Diagram review checked labels, edge routing, unique XML IDs and valid edge references. Historical milestone sources remain available.</p>
 <p>The final presentation has 16 slides in the instructor's five-section order: Introduction, Background, Problem Statement, Your Solution, Results. Its editable PowerPoint passed package, layout and font validation and a first-party import check. All slides were visually inspected. PDF conversion used LibreOffice after the authoring runtime's native PDF export was unavailable; the resulting PDF has searchable text. No PowerPoint-native visual verification is claimed.</p>
 <p>The application changes also received an independent source review focused on private records, ownership checks, CSRF, debug-off startup, static files and the synthetic deployment. No concrete blocking defect was found within that review scope.</p>
+<h2 id="published-verification">Published verification</h2>
+<p>The application/artifact revision <code>b766877</code> passed <a href="https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636608162">application CI</a> and the <a href="https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636608214">strict MkDocs build and publish job</a>. The subsequent <a href="https://github.com/aryanorastar/ucs503p-202627-deadlinedesk/actions/runs/45636764060">GitHub Pages deployment</a> succeeded.</p>
+<p>After publication, 50 live pages and assets were checked: the home/submission/UML/demo/test/presentation pages, all eight UML pages with their PDF/PNG exports, the report/test/Gantt/presentation PDFs and all 16 slide previews. The downloaded PDF and PNG bytes matched the checked local artifacts. The running Django login endpoint also returned HTTP 200. These checks establish the recorded publication state, while the temporary demonstration still depends on its host and tunnel.</p>
 <h2 id="limits-and-demonstration-lifetime">Limits and demonstration lifetime</h2>
 <p>The public endpoint is a temporary tunnel and requires this host, Gunicorn and the tunnel process to remain active. Restarting the tunnel changes its URL. Reopen the live link before evaluation and follow the <a href="../live-demo/">startup guide</a> if it has expired. The Dockerfile is supplied for persistent hosting but has not been built or deployed in this verification.</p>
 <p>No claim is made for production uptime, malware detection, institutional SSO, external reminder delivery, high load or PostgreSQL concurrency. Similarity remains a token-overlap teaching stub. Test passes and a working demonstration do not remove those boundaries.</p>
@@ -1589,7 +1603,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 25, 2026 14:37:30 UTC">November 25, 2026</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date" title="November 25, 2026 14:43:02 UTC">November 25, 2026</span>
   </span>
 
     
